@@ -1,6 +1,12 @@
 import { createStore } from 'vuex'
+import formValid from './formValid';
 
 export default createStore({
+
+  modules: {
+    formValid,
+  },
+
   state: {
   },
   getters: {
@@ -9,6 +15,4 @@ export default createStore({
   },
   actions: {
   },
-  modules: {
-  }
 })

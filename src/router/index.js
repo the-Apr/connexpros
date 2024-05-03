@@ -1,25 +1,53 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Login from '../views/Login.vue'
+import about from '../views/AboutView.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    
+    redirect: '/login'
   },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      title: 'Login'
+    }
+  },
+
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: about,
+    meta: {
+      title: 'Login'
+    }
+  },
+
+  {
+    path: '/reset-password',
+    name: 'reset-password',
+    
+    component: () => import(/* webpackChunkName: "reset-password" */ '../components/ResetPassword.vue'),
+    meta: {
+      title: 'Reset Password'
+    }
   }
+
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = `${to.meta.title} | ConnexPros`;
+  
+  next();
 })
 
 export default router
