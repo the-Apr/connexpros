@@ -50,8 +50,8 @@
           </div> 
 
           <p class="return-login">
-            Return to
-            <router-link :to="{name: 'login'}">Login</router-link>
+            <span>Return to </span>
+            <router-link :to="{name: 'login'}" class="login-return">Login</router-link>
           </p>
         </form>
 
@@ -264,12 +264,12 @@ export default {
               }
 
               input{
-                @apply  shadow-sm text-white w-full rounded-lg px-8 py-4 text-sm
+                @apply  shadow-sm w-full rounded-lg px-8 py-4 text-sm
                 border-none outline-none font-medium
                 ring-1 ring-inset ring-[#D4D6D9];
                 
                 @screen lg {
-                  @apply bg-[#104438] bg-opacity-45 text-base;
+                  @apply bg-[#104438] bg-opacity-45 text-base text-white;
                 }
 
                 &::placeholder {
@@ -307,11 +307,23 @@ export default {
           }
 
           .return-login {
-            @apply cursor-pointer text-sm uppercase no-underline underline-offset-2 opacity-50;
+            @apply cursor-pointer text-sm uppercase;
             transition: 0.5s ease all;
-      
-            &:hover {
-            @apply underline;
+
+            span {
+              @apply  opacity-50;
+            }
+
+            .login-return {
+              @apply text-black no-underline underline-offset-2;
+
+              @screen lg {
+                @apply text-white;
+              }
+
+              &:hover {
+                @apply underline;
+              }
             }
           }
 

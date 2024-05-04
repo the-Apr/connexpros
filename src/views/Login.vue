@@ -34,7 +34,7 @@
             <input
               maxlength="20" 
               :type="showPassword ? 'text' : 'password'"  
-              placeholder="Password" 
+              placeholder="password" 
               v-model="loginDetails.password"
               :class="errorClass('password')"
             >
