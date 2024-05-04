@@ -147,16 +147,24 @@ export default {
 
         } else {
         
-          this.signIn();
+          //this.signIn();
         }
       }
       finally {
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
+          this.resetForm();
         }, 12000);
       }
-    }
+    },
+
+     resetForm() {
+      this.loginDetails = {
+        email: null,
+        password: null
+      } 
+    }  
   }
 }
 </script>
@@ -212,6 +220,10 @@ export default {
             @screen md {
               @apply tracking-wider mb-3 font-semibold text-2xl;
             }
+
+            @screen lg {
+              @apply text-3xl;
+            }
           }
       
           .input-wrap {
@@ -246,11 +258,11 @@ export default {
                 ring-1 ring-inset ring-[#D4D6D9];
                 
                 @screen lg {
-                  @apply bg-[#104438] bg-opacity-45 text-white ;
+                  @apply bg-[#104438] bg-opacity-45 text-white text-base ;
                 }
 
                 &::placeholder {
-                  @apply text-[#CACACA] opacity-50 text-[13px] text-left font-normal;
+                  @apply text-[#CACACA] text-opacity-50 text-[13px] text-left font-normal;
 
                   @screen md {
                     @apply text-base;
@@ -286,14 +298,10 @@ export default {
             }
 
             .login-btn {
-              @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors;
+              @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors text-sm text-white tracking-wide font-semibold leading-6;
 
               &:hover {
-                @apply opacity-80 ease-in-out;
-              }
-
-              button{
-                @apply text-sm tracking-wide font-semibold leading-6;
+                @apply bg-opacity-80 ease-in-out;
               }
             }
 

@@ -7,9 +7,9 @@
         <img src="../assets/display/logo.png" alt="connexpros logo">
       </div>
 
-      <!-- login form -->
-      <div class="reset-form">
-        <form @submit.prevent= submitForm>
+      <!-- reset form -->
+      <div class="reset-form" v-show="!resetLink">
+        <form @submit.prevent= resetPassword>
 
           <h2>Reset Password</h2>
 
@@ -51,7 +51,7 @@
 
           <p class="return-login">
             Return to
-            <router-link :to="{}">Login</router-link>
+            <router-link :to="{name: 'login'}">Login</router-link>
           </p>
         </form>
 
@@ -59,12 +59,54 @@
           <p>Privacy Policy</p>
         </div>
       </div>
+
+      <!-- email sent -->
+      <div class="reset-form" v-show="resetLink">
+        <form>
+
+          <h2>Check Your Email</h2>
+
+          <!-- login block  -->
+          <div class="input-wrap">
+
+            <p class="reset-msg">An email containing a password reset link has been sent to you.</p>
+
+            <button 
+            type="submit" 
+            class="reset-btn"
+            :class="{loading: 'cursor-wait'}"
+            :disabled="loading">
+
+              <span v-if="loading">
+                <fa-icon 
+                  class="circle-notch animate-spin" 
+                  :icon="['fas', 'spinner']" 
+                />
+              </span>
+
+              <span v-else>
+                <router-link :to="{name: 'login'}"> Go to Login</router-link>
+              </span> 
+            </button>
+          
+
+          </div> 
+
+        </form>
+
+        <div class="privacy-policy">
+          <p>Privacy Policy</p>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
+import { ElNotification } from 'element-plus';
 
 export default {
   name: 'reset-password',
@@ -75,6 +117,7 @@ export default {
       error: null,
       errorMsg: '',
       loading: null,
+      resetLink: null,
       
       loginDetails: {
         email: "",
@@ -93,23 +136,54 @@ export default {
   methods: {
     ...mapActions ('formValid', ['VALIDATE_EMPTY_FIELDS']),
 
+    errorModal () {
+      ElNotification({
+        title: 'Error',
+        message: this.errorMsg,
+        type: 'error',
+      })
+    },
 
-    async submitForm() {
-      this.loading = true;
-      const { emptyFields, error } = await this.VALIDATE_EMPTY_FIELDS(this.loginDetails);
+    validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+      ///^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/;
+    },
 
-      this.emptyFields = emptyFields;
+    async resetPassword() {
+      try{
 
-      if (error) {
-        this.error = true;
-        this.errorMsg = "Invalid username or password";
-      } else {
-        this.error = false;
-        console.log('signed in')
+        const { emptyFields, error } = await this.VALIDATE_EMPTY_FIELDS(this.loginDetails);
+        const isEmailValid = this.validateEmail(this.loginDetails.email);
 
-        this.signIn();
+        console.log(isEmailValid)
+  
+        this.emptyFields = emptyFields;
+  
+        if (error || !isEmailValid) {
+          this.error = true;
+          this.errorMsg = "Invalid email";
+          this.errorModal();
+        } else {
+          this.error = false;
+          this.resetLink = true;
+          //this.sendResetLink();
+        }
+      }
+      finally{
+        setTimeout(() => {
+          this.error = false;
+          this.errorMsg = "";
+          this.resetForm();
+        }, 12000);
       }
     },
+
+    resetForm() {
+      this.loginDetails = {
+        email: null,
+      } 
+    }  
   }
 }
 </script>
@@ -156,14 +230,14 @@ export default {
           @apply py-3 relative flex flex-col  gap-y-8 items-center justify-center h-full w-full;
 
           @screen lg {
-            @apply gap-y-12 px-3 py-0;
+            @apply gap-y-10 px-3 py-0;
           }
          
           h2 { 
             @apply text-lg font-medium tracking-wide mb-1;
             
             @screen md {
-              @apply tracking-wider mb-3 font-semibold text-2xl;
+              @apply tracking-wider font-semibold text-2xl;
             }
           }
       
@@ -191,15 +265,15 @@ export default {
 
               input{
                 @apply  shadow-sm text-white w-full rounded-lg px-8 py-4 text-sm
-                border-none outline-none 
+                border-none outline-none font-medium
                 ring-1 ring-inset ring-[#D4D6D9];
                 
                 @screen lg {
-                  @apply bg-[#104438] bg-opacity-45 ;
+                  @apply bg-[#104438] bg-opacity-45 text-base;
                 }
 
                 &::placeholder {
-                  @apply text-[#CACACA] text-[11px] text-left font-normal;
+                  @apply text-[#CACACA] text-opacity-50 text-[11px] text-left font-normal;
 
                   @screen md {
                     @apply text-base;
@@ -218,16 +292,17 @@ export default {
 
             }
 
+            .reset-msg {
+              @apply mb-8;
+            }
+
             .reset-btn {
-              @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors;
+              @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors text-sm text-white tracking-wide font-semibold leading-6;
 
               &:hover {
-                @apply opacity-80 ease-in-out;
+                @apply bg-opacity-80 ease-in-out;
               }
 
-              button{
-                @apply text-sm tracking-wide font-semibold leading-6;
-              }
             }
           }
 

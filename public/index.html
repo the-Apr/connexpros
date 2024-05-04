@@ -6,6 +6,34 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <meta name="description" content="ConnexPros, we transform businesses through effective financial management">
+
+    <meta name="keywords" content="connexpros, finance, financial management, financial advisory">
+
+    <!-- Open Graph Meta Tags (for social sharing) -->
+    <meta property="og:title" content="ConnexPros">
+
+    <meta property="og:description" content="ConnexPros | Transforming businesses through effective financial management | Drive profitability with our tailored solutions for businesses | Financial Analysis | Business Analysis">
+
+    <meta property="og:image" content="{{ asset('display/logo.png') }}">
+
+    <!-- Structured data (JSON-LD) for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ConnexPros",
+        "url": "https://www.connexpros.com",
+        "logo": "../src/assets/display/logo.png",
+        "description": "Transforming businesses through effective financial management.",
+        "sameAs": [
+          "https://www.linkedin.com/company/connexpros",
+          "https://twitter.com/connexpros"
+        ]
+      }
+    </script>
+
   </head>
   <body>
     <noscript>

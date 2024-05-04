@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '../views/Login.vue'
-import about from '../views/AboutView.vue'
+import { defineAsyncComponent } from 'vue';
+
+const Login =  defineAsyncComponent(() => import(/* webpackChunkName: "login" */ '@/views/Login.vue'));
+const ResetPassword =  defineAsyncComponent(() => import(/* webpackChunkName: "reset-password" */ '@/components/ResetPassword.vue'));
 
 const routes = [
   {
-    path: '/',
-    
+    path: '/', 
     redirect: '/login'
   },
 
@@ -19,19 +20,9 @@ const routes = [
   },
 
   {
-    path: '/about',
-    name: 'about',
-    component: about,
-    meta: {
-      title: 'Login'
-    }
-  },
-
-  {
     path: '/reset-password',
     name: 'reset-password',
-    
-    component: () => import(/* webpackChunkName: "reset-password" */ '../components/ResetPassword.vue'),
+    component: ResetPassword,
     meta: {
       title: 'Reset Password'
     }
