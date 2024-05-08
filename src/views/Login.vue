@@ -89,6 +89,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { ElNotification } from 'element-plus'
+import CryptoJS from 'crypto-js';
 
 export default {
   name: 'Login',
@@ -154,12 +155,40 @@ export default {
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
+        }, 12000);
+      }
+    },
+
+    async signIn() {
+      
+      this.loading = true;
+      try {
+        const passphrase = process.env.PASSPHRASE;
+        const loginData = {
+          email: await this.encryptData(this.loginDetails.email, passphrase),
+          password: await this.encryptData(this.loginDetails.password, passphrase),
+        }
+
+      }
+      catch{
+        this.error = true;
+        this.errorMsg = "Access Denied! Try again.";
+
+      }finally {
+        this.loading = false;
+        setTimeout(() => {
+          this.error = false;
+          this.errorMsg = "";
           this.resetForm();
         }, 12000);
       }
     },
 
-     resetForm() {
+    async encryptData(data, passphrase) {
+      return CryptoJS.AES.encrypt(data, passphrase).toString();
+    },
+
+    resetForm() {
       this.loginDetails = {
         email: null,
         password: null
