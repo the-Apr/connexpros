@@ -5,7 +5,11 @@
     <suspense>
 
       <template #default>
-        <router-view/>
+        <div class="app-wrap">
+          <panel-nav/>
+
+        </div>
+
       </template>
 
       <template #fallback>
@@ -19,11 +23,13 @@
 </template>
 
 <script>
+import PanelNav from './components/PanelNav.vue'
 
 export default {
   name: "app",
 
   components: {
+    PanelNav
    
   }
 }
@@ -39,4 +45,11 @@ export default {
     height: 100vh;
   }
 
+  // .icon {
+  //   @apply h-[18px];
+  // }
+
+  .app-wrap {
+    @apply grid grid-cols-5 gap-1;
+  }
 </style>

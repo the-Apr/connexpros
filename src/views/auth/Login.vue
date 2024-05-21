@@ -4,7 +4,7 @@
 
     <!-- logo -->
     <div class="logo-space">
-      <img src="../assets/display/logo.png" alt="connexpros logo">
+      <img src="../../assets/logo.png" alt="connexpros logo">
     </div>
 
     <!-- login form -->

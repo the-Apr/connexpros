@@ -4,7 +4,7 @@
 
       <!-- logo -->
       <div class="logo-space">
-        <img src="../assets/display/logo.png" alt="connexpros logo">
+        <img src="../../assets/logo.png" alt="connexpros logo">
       </div>
 
       <!-- reset form -->
@@ -99,8 +99,8 @@
         </div>
       </div>
 
-
     </div>
+
   </div>
 </template>
 
@@ -109,6 +109,7 @@ import { mapActions } from 'vuex';
 import { ElNotification } from 'element-plus';
 
 export default {
+  components: {  },
   name: 'reset-password',
 
   data() {
@@ -195,6 +196,7 @@ export default {
     @apply text-white overflow-hidden;
     height: 100vh;
     margin: 0 auto;
+    padding: 20px;
 
     .reset-wrap {
       @apply flex flex-col gap-y-20 justify-center w-full h-full;

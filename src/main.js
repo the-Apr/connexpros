@@ -12,11 +12,18 @@ const Spinner = defineAsyncComponent(() => import('@/components/UI/BaseLoading.v
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
+import { faEye, faEyeSlash, faUser} from '@fortawesome/free-regular-svg-icons';
 
-import { faCircleNotch, faExclamationCircle } from '@fortawesome/fontawesome-free-solid'
+import {faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faEye, faEyeSlash, faCircleNotch, faExclamationCircle);
+library.add(
+  // regular
+  faEye, faEyeSlash, faUser,
+
+  // solid
+  faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder
+);
+
 
 const app= createApp(App);
 
