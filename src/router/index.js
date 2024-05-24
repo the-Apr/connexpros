@@ -5,8 +5,16 @@ const Login =  () => import(/* webpackChunkName: "login" */ '@/views/auth/Login.
 const ResetPassword =  () => import(/* webpackChunkName: "reset-password" */ '@/views/auth/ResetPassword.vue');
 const Dashboard =  () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue');
 const Documents =  () => import(/* webpackChunkName: "documents" */ '../views/Documents.vue');
+const Folder =  () => import(/* webpackChunkName: "folder" */ '../views/FolderWrap.vue');
+const Test =  () => import(/* webpackChunkName: "test" */ '../views/TestScreen.vue');
 
 const routes = [
+
+  // {
+  //   path: '/:catchAll(.*)',
+  //   name: NotFound
+  // },
+
   {
     path: '/', 
     redirect: '/dashboard'
@@ -45,9 +53,21 @@ const routes = [
     component: Documents,
     meta: {
       title: 'Documents'
-    }
-  }
-
+    },
+    children: [
+      {
+        path: '/test',
+        name: 'test',
+        component: Test,
+      },
+      {
+        path: '/folder',
+        name: 'folder',
+        component: Folder,
+      }
+    ]
+  },
+  
 ]
 
 const router = createRouter({

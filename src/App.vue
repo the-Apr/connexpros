@@ -7,7 +7,7 @@
       <template #default>
         <div class="app-wrap">
           <panel-nav/>
-
+          <router-view/>
         </div>
 
       </template>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import PanelNav from './components/PanelNav.vue'
+import PanelNav from './components/Panel/PanelNav.vue'
 
 export default {
   name: "app",

@@ -4,7 +4,7 @@
 
       <!-- logo -->
       <div class="logo-space">
-        <img src="../assets/logo.png" alt="logo image">
+        <img src="../../assets/logo.png" alt="logo image">
       </div>
 
       <div class="nav-log">
@@ -28,12 +28,11 @@
         </div>
       </div>
 
-
-     
     </div>
 
   </div>
-    <router-view/>
+  
+  
 </template>
 
 <script>
