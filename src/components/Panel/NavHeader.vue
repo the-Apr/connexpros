@@ -3,7 +3,7 @@
    
   <!-- nav header -->
   <div class="nav-header">
-    <h2>Documents</h2>
+    <h2>{{title}}</h2>
 
     <div class="nav-details">
 
@@ -28,17 +28,24 @@
 
 <script>
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+
+  props: {
+    title: {
+      type: String,
+      required: true
+    }
+  }
 
 }
 </script>
 
 <style lang="scss" scoped>
 .nav-header-wrap {
-  @apply col-span-4;
+  @apply col-span-4 bg-[#F7F8F8];
 
   .nav-header {
-    @apply flex flex-row gap-4 justify-between items-center px-10 bg-white border-b-2 border-[#EAEBEB] h-[90px];
+    @apply flex flex-row gap-4 justify-between items-center px-10 border-b-2 border-[#EAEBEB] h-[90px];
 
     h2{
       @apply text-lg font-bold text-[#15202C];
@@ -59,8 +66,8 @@ export default {
         }
 
         input{
-          @apply accent-[#00ABF1] shadow-sm ring-1 ring-inset ring-gray-300 outline-none text-black w-[300px];
-          background-color: #f2f7f6;
+          @apply accent-[#00ABF1] shadow-sm ring-1 ring-inset ring-gray-300 outline-none text-black w-[300px] bg-white;
+          //background-color: #f2f7f6;
           padding: 13px 9px 13px 44px;
           border: none;
           border-radius: 10px;

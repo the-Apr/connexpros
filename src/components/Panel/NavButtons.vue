@@ -41,26 +41,30 @@ export default {
 
   data() {
     return {
-      navBtnArray: [
-        {
-          navImg: '',
-          navTitle: 'Dashboard',
-          navRoute: ''
-        },
-        
-      ]
+    
     }
  },
 
+ computed: {
+
+ },
+
  methods: {
-   isActiveRoute(routeName) {
-      return this.$route.name === routeName;
+   isActiveRoute(routeLink) {
+      return this.$route.matched.some(record => record.name === routeLink);
+      
+      // return this.$route.path.includes(routeLink);
     },
  }
 }
 </script>
 
 <style lang='scss' scoped>
+
+.router-link-active{
+  @apply shadow-lg;
+}
+
 .btn-wrap {
   @apply  max-w-[150px];
 
@@ -69,7 +73,7 @@ export default {
   }
 
   .nav-link {
-    @apply flex flex-col gap-3 p-1 items-center justify-center;
+    @apply flex flex-col gap-3 p-1 items-center justify-center rounded-xl;
 
    
 
@@ -77,7 +81,7 @@ export default {
       @apply  p-2 flex items-center justify-center w-[60px] h-[50px] bg-[#EAEBEB]  text-[#104438] rounded-xl;
 
       @screen xl {
-        @apply w-[110px] h-[70px];
+        @apply w-[80px] h-[70px];
       }
 
       &.activeNav,

@@ -59,8 +59,8 @@ export default {
         },
         {
           navImg: 'briefcase',
-          navTitle: 'Dashboard',
-          navRoute: 'login'
+          navTitle: 'Projects',
+          navRoute: 'proj'
         },
         {
           navImg: 'briefcase',
@@ -81,7 +81,7 @@ export default {
 
 <style lang='scss' scoped>
 .panel-nav-wrap {
-  @apply px-8 py-10  text-[#515252] min-w-[270px] border-r-2 border-[#EAEBEB] shadow-md col-span-1;
+  @apply px-8 py-10  text-[#515252] min-w-[200px] border-r-2 border-[#EAEBEB] shadow-md col-span-1;
   height: 100vh;
   z-index: 5;
 
@@ -93,7 +93,7 @@ export default {
 
 
         img {
-          @apply object-cover w-[250px];
+          @apply object-cover w-[150px];
         }
     }
 

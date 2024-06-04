@@ -49,7 +49,7 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'FolderWrap',
+  name: 'SubFolders',
 
   data () {
     return {

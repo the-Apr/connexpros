@@ -1,72 +1,109 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { defineAsyncComponent } from 'vue';
-
-const Login =  () => import(/* webpackChunkName: "login" */ '@/views/auth/Login.vue');
-const ResetPassword =  () => import(/* webpackChunkName: "reset-password" */ '@/views/auth/ResetPassword.vue');
-const Dashboard =  () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue');
-const Documents =  () => import(/* webpackChunkName: "documents" */ '../views/Documents.vue');
-const Folder =  () => import(/* webpackChunkName: "folder" */ '../views/FolderWrap.vue');
-const Test =  () => import(/* webpackChunkName: "test" */ '../views/TestScreen.vue');
 
 const routes = [
 
-  // {
-  //   path: '/:catchAll(.*)',
-  //   name: NotFound
-  // },
+  // not found
+  {
+    path: '/:catchAll(.*)',
+    name: 'not-found',
+    component:  () => import(/* webpackChunkName: "notFound" */ '../views/NotFound.vue'),
+  },
 
+  // redirect
   {
     path: '/', 
     redirect: '/dashboard'
   },
 
+  // login
   {
     path: '/login',
     name: 'login',
-    component: Login,
+    component: () => import(/* webpackChunkName: "login" */ '@/views/auth/Login.vue'),
     meta: {
       title: 'Login'
     }
   },
 
+  // reset-password
   {
     path: '/reset-password',
     name: 'reset-password',
-    component: ResetPassword,
+    component: () => import(/* webpackChunkName: "reset-password" */ '@/views/auth/ResetPassword.vue'),
     meta: {
       title: 'Reset Password'
     }
   },
 
+  // dashboard
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard,
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
     meta: {
       title: 'Dashboard'
     },
   },
 
+  // projects
+  {
+    path: '/projects',
+    name: 'proj',
+    component: () => import(/* webpackChunkName: "projects" */ '../views/proj/Projects.vue'),
+    meta: {
+      title: 'Projects'
+    },
+
+    children: [
+      // client project
+      {
+        path: 'client-proj',
+        name: 'client-proj',
+        component: () => import(/* webpackChunkName: "clientproject" */ '../components/Projects/each-proj/EachProject.vue'),
+        meta: {
+          title: 'Client'
+        },
+    
+        children: [
+          {
+            path: 'summary',
+            name: 'summary',
+            component: () => import(/* webpackChunkName: "summary" */ '../views/proj/proj-view/Summary.vue')
+          },
+          {
+            path: 'milestones',
+            name: 'milestones',
+            component: () => import(/* webpackChunkName: "summary" */ '../views/proj/Projects.vue'),
+          },
+    
+        ]
+      },
+    ]
+  },
+
+
+  // document
   {
     path: '/document',
     name: 'doc',
-    component: Documents,
+    component:  () => import(/* webpackChunkName: "documents" */ '../views/doc/Documents.vue'),
     meta: {
       title: 'Documents'
     },
     children: [
       {
-        path: '/test',
+        path: 'test',
         name: 'test',
-        component: Test,
+        component: () => import(/* webpackChunkName: "test" */ '../views/TestScreen.vue'),
       },
       {
-        path: '/folder',
+        path: 'folder',
         name: 'folder',
-        component: Folder,
+        component: () => import(/* webpackChunkName: "subfolder" */ '../views/doc/SubFolders.vue'),
       }
     ]
   },
+
   
 ]
 
