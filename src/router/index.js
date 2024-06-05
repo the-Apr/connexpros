@@ -71,9 +71,24 @@ const routes = [
             component: () => import(/* webpackChunkName: "summary" */ '../views/proj/proj-view/Summary.vue')
           },
           {
-            path: 'milestones',
-            name: 'milestones',
-            component: () => import(/* webpackChunkName: "summary" */ '../views/proj/Projects.vue'),
+            path: 'milestone',
+            name: 'milestone',
+            component: () => import(/* webpackChunkName: "milestone" */ '../views/proj/proj-view/Milestone.vue'),
+          },
+          {
+            path: 'transaction',
+            name: 'transaction',
+            component: () => import(/* webpackChunkName: "transaction" */ '../views/proj/proj-view/Transation.vue'),
+          },
+          {
+            path: 'documents',
+            name: 'documents',
+            component: () => import(/* webpackChunkName: "documents" */ '../views/proj/proj-view/ProjDocuments.vue'),
+          },
+          {
+            path: 'reports',
+            name: 'reports',
+            component: () => import(/* webpackChunkName: "reports" */ '../views/proj/proj-view/Report.vue'),
           },
     
         ]

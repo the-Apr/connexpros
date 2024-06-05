@@ -11,7 +11,7 @@
     <router-link 
       class="link" 
       
-      :to="{name: ''}"
+      :to="{name: 'milestone'}"
       >
       
       Milestone
@@ -19,7 +19,7 @@
 
     <router-link 
       class="link" 
-      :to="{name: ''}"
+      :to="{name: 'documents'}"
       >
       
       Document
@@ -28,7 +28,7 @@
     <router-link 
       class="link" 
       
-      :to="{name: ''}"
+      :to="{name: 'transaction'}"
       >
       
       Transaction
@@ -37,7 +37,7 @@
     <router-link 
       class="link" 
       
-      :to="{name: ''}"
+      :to="{name: 'reports'}"
       >
       
       Reports

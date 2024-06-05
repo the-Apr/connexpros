@@ -6,7 +6,7 @@
 
       <!-- doc body -->
       <div class="doc-body">
-       <sort-filter/>
+       <sort-filter title= "All Files"/>
 
         <div class="all-files">
           

@@ -27,7 +27,36 @@
     </div>
 
     <div class="bottom">
+      <div class="budget-alloc">
+        <h2>Budget Allocation</h2>
 
+        <div class="pie-chart">
+
+        </div>
+      </div>
+
+      <div class="expenses-breakdown">
+        <div class="expns-more">
+          <h2>Expenses Breakdown</h2>
+          <p>View More</p>
+        </div>
+
+        <div class="breakdown-table">
+
+          <div class="each-expense"
+          v-for="i in 6" :key="i">
+            <div class="cost-amount">
+              <p class="cost-title">Labor Cost</p>
+              <p class="amount">$250.00</p>
+            </div>
+
+            <span class="material-symbols-outlined text-[#9F9F9F]">
+              arrow_forward
+            </span>
+          </div>
+        </div>
+        
+      </div>
     </div>
     
   </div>
@@ -82,6 +111,48 @@ export default {
           
           p{
             @apply text-sm font-normal;
+          }
+        }
+      }
+    }
+
+    .bottom {
+      @apply grid grid-cols-2 gap-6 w-full;
+
+      .budget-alloc,
+      .expenses-breakdown{
+        @apply flex flex-col gap-4 p-8 bg-[#F7F8F8] rounded-2xl;
+
+        h2{
+          @apply text-[#141515] text-base font-semibold tracking-wide;
+        }
+
+        .expns-more {
+          @apply flex flex-row justify-between;
+
+          p{
+            @apply text-[#9F9F9F]
+          }
+        }
+
+        .breakdown-table {
+          @apply grid grid-cols-2;
+
+          .each-expense {
+            @apply flex flex-row gap-6 justify-center items-center p-6 w-full;
+
+            .cost-amount{
+              @apply flex flex-col gap-2;
+
+              .cost-title{
+                @apply text-sm text-[#515252];
+              }
+
+              .amount{
+                @apply text-[#141515] font-bold text-base
+              }
+            }
+
           }
         }
       }
