@@ -3,18 +3,20 @@
   <div id="app">
 
     <suspense>
+      
+      <router-view />
 
-      <template #default>
+      <!-- <template #default>
         <div class="app-wrap">
           <panel-nav/>
           <router-view/>
         </div>
 
-      </template>
+      </template> -->
 
-      <template #fallback>
+      <!-- <template #fallback>
         <spinner/>
-      </template>
+      </template> -->
 
     </suspense>
     
@@ -37,11 +39,14 @@ export default {
 
 <style lang="scss">
   #app {
+    margin: 0;
+    padding: 0;
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    width: 100vw;
+
+    // width: 100vw;
     height: 100vh;
   }
 
@@ -50,6 +55,6 @@ export default {
   // }
 
   .app-wrap {
-    @apply grid grid-cols-5 gap-1;
+    @apply grid grid-cols-5 gap-1 h-full w-full overflow-x-hidden;
   }
 </style>

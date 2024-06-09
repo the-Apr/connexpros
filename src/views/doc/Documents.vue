@@ -12,48 +12,16 @@
           
           <!-- folder-wrap -->
           <template v-if="showAllFiles">
-            <div 
-            class="each-file" 
-            v-for="(docData,index) in docDataArray"
-            :key="index"
-            @mouseenter="docHovered(index)"
-            @mouseleave="docUnhovered">
 
-              <!-- folder -->
-              <router-link :to="{name: 'folder'}" class="img-view">
-                <div>
-                
-                  <fa-icon :icon="['fas', 'folder']" class="folder-icon"/>
-
-                  <div class="star-dots" v-show="hoveredIndex === index">
-                    <span class="material-symbols-outlined doc-icons">
-                      grade
-                    </span>
-                    <span class="material-symbols-outlined doc-icons">
-                      more_vert
-                    </span>
-                  </div>
-                </div>
-              </router-link>
-
-              <!-- details and download -->
-              <div class="details-download">
-
-                <div class="name-date">
-                  <h3 class="file-name">{{docData.folderName}}</h3>
-                  <div class="folder-date">
-                    <p>Folder •</p>
-                    <p>{{docData.folderDate}}</p>
-                  </div>
-                </div>
-
-                <span class="material-symbols-outlined doc-icons"
-                v-show="hoveredIndex === index">
-                  download
-                </span>
-              </div>
-
-            </div>
+            <base-document
+            v-for="(docData, index) in docDataArray" 
+            :key="index" 
+            :docData="docData" 
+            :isHovered="hoveredIndex === index"
+            :onMouseEnter="() => docHovered(index)"
+            :onMouseLeave="docUnhovered"
+            />
+            
           </template>
 
           <template v-else>
@@ -73,13 +41,14 @@ import { defineAsyncComponent } from 'vue';
 import { mapGetters } from 'vuex'
 import FolderWrap from './SubFolders.vue';
 import SortFilter from '@/components/SortFilter.vue';
+import BaseDocument from '@/components/BaseDocument.vue';
 
 const NavHeader = defineAsyncComponent(() => import('@/components/Panel/NavHeader.vue'));
 const DocSideNav  = defineAsyncComponent(() => import('@/components/Documents/DocSideNav.vue'));
 
 export default {
   name: 'Documents',
-  components: { NavHeader, DocSideNav, FolderWrap, SortFilter },
+  components: { NavHeader, DocSideNav, FolderWrap, SortFilter, BaseDocument },
 
   data () {
     return {
@@ -114,16 +83,24 @@ export default {
 
 <style lang='scss' scoped>
 .document-wrap{
-  @apply col-span-4 text-black h-full flex flex-col;
+  @apply col-span-5 text-black h-full flex flex-col;
+
+  @screen lg {
+    @apply col-span-4
+  }
 
   .full-body{
     @apply flex flex-row gap-3 divide-x-2 grow;
 
     .doc-body{
-      @apply flex flex-col gap-6 justify-start items-start h-full w-4/5 p-14; 
+      @apply flex flex-col gap-6 justify-start items-start h-full w-3/4 p-14; 
 
       .all-files {
-        @apply p-2 grid grid-cols-4 gap-10 h-full w-full;
+        @apply p-2 grid grid-cols-3 gap-8 w-full;
+
+        @screen xl{
+          @apply grid-cols-4;
+        }
 
         .each-file {
            @apply flex flex-col gap-4 max-w-[300px] h-[300px];

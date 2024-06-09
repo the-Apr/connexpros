@@ -1,6 +1,6 @@
 <template>
   <div class="files-view-sort">
-    <h3>{{title}}</h3>
+    <h3>{{ title || '' }}</h3>
 
     <div class="sort-view">
       <div class="sort">

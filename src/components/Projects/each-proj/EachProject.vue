@@ -111,7 +111,7 @@ export default {
     }
 
     .proj-display {
-      @apply w-full h-full p-6 bg-white rounded-2xl flex flex-col gap-4 divide-y-2 overflow-scroll;
+      @apply w-full h-full p-6 bg-white rounded-2xl flex flex-col  divide-y-2 overflow-scroll;
 
       .proj-body {
         @apply py-8;

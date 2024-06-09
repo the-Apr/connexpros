@@ -2,6 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
 
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import(/* webpackChunkName: "test" */ '../components/MODAL/AddMilestone.vue'),
+    //component: () => import(/* webpackChunkName: "test" */ '../views/TestScreen.vue'),
+  },
+
   // not found
   {
     path: '/:catchAll(.*)',
@@ -59,6 +66,7 @@ const routes = [
       {
         path: 'client-proj',
         name: 'client-proj',
+        //redirect: 'summary',
         component: () => import(/* webpackChunkName: "clientproject" */ '../components/Projects/each-proj/EachProject.vue'),
         meta: {
           title: 'Client'
@@ -106,11 +114,6 @@ const routes = [
       title: 'Documents'
     },
     children: [
-      {
-        path: 'test',
-        name: 'test',
-        component: () => import(/* webpackChunkName: "test" */ '../views/TestScreen.vue'),
-      },
       {
         path: 'folder',
         name: 'folder',

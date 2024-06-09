@@ -65,25 +65,40 @@ export default {
         {
           navImg: 'briefcase',
           navTitle: 'Dashboard',
-          navRoute: 'login'
+          navRoute: ''
         },
         {
           navImg: 'briefcase',
           navTitle: 'Dashboard',
-          navRoute: 'login'
+          navRoute: ''
         },
         
       ]
     }
+  },
+
+  methods: {
+    checkScreen() {
+      const windowWidth = window.innerWidth;
+      if (windowWidth <= 980) {
+        commit('setMobile', true);
+      } else {
+        commit('setMobile', false);
+      }
+    },
   }
 }
 </script>
 
 <style lang='scss' scoped>
 .panel-nav-wrap {
-  @apply px-8 py-10  text-[#515252] min-w-[200px] border-r-2 border-[#EAEBEB] shadow-md col-span-1;
-  height: 100vh;
+  @apply px-8 py-10  text-[#515252] min-w-[200px] border-r-2 border-[#EAEBEB] shadow-md col-span-1 hidden;
+  //height: 100vh;
   z-index: 5;
+
+  @screen lg{
+    @apply block;
+  }
 
   .panel-nav {
     @apply flex flex-col gap-y-24 justify-start content-center items-center h-full;

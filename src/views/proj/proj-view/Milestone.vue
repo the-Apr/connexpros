@@ -74,7 +74,7 @@
 
 <script>
 export default {
-  name: 'Summary'
+  name: 'Milestone'
 
 }
 </script>
@@ -97,7 +97,7 @@ export default {
     }
 
     .milestone-table {
-      @apply w-full h-full py-4 bg-white rounded-2xl flex flex-col  divide-y-2;
+      @apply w-full h-full py-1 bg-white rounded-2xl flex flex-col  divide-y-2;
 
       .table-head h2:nth-child(1) {
         @apply justify-self-start;

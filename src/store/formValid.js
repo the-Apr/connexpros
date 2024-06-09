@@ -44,15 +44,13 @@ export default {
     // },
 
     VALIDATE_EMPTY_FIELDS({ state }, formData) {
-      // Perform empty fields validation logic
+     
       const emptyFields = Object.entries(formData)
         .filter(([fieldName, value]) => !value)
         .map(([fieldName]) => fieldName);
 
-      // Determine whether there are empty fields or not
       const error = emptyFields.length > 0;
 
-      // Return the list of empty fields and error flag
       return { emptyFields, error };
     }
   },

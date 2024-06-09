@@ -67,7 +67,7 @@ export default {
 
 <style lang='scss' scoped>
 .side-nav {
-  @apply w-1/5 h-full flex flex-col gap-5 divide-y-2 text-[#515252]; 
+  @apply w-1/4 h-full flex flex-col gap-5 divide-y-2 text-[#515252]; 
 
   p{
     @apply text-[#515252] text-base font-medium;

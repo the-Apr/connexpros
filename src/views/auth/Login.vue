@@ -18,13 +18,13 @@
 
           <!-- email -->
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email / Username</label>
             <input 
-              type="email"
+              type="text"
               maxlength="40" 
               placeholder="johndoe@email.com" 
-              v-model="loginDetails.email" 
-              :class="errorClass('email')"
+              v-model="loginDetails.username" 
+              :class="errorClass('username')"
             >
           </div>
 
@@ -103,7 +103,7 @@ export default {
       loading: null,
       
       loginDetails: {
-        email: "",
+        username: "",
         password: ""
       }
     }
@@ -148,7 +148,7 @@ export default {
 
         } else {
         
-          //this.signIn();
+          this.signIn();
         }
       }
       finally {
@@ -163,17 +163,27 @@ export default {
       
       this.loading = true;
       try {
+        
         const passphrase = process.env.PASSPHRASE;
-        const loginData = {
-          email: await this.encryptData(this.loginDetails.email, passphrase),
-          password: await this.encryptData(this.loginDetails.password, passphrase),
-        }
+        // const loginData = {
+        //   username: await this.encryptData(this.loginDetails.username, passphrase),
+        //   password: await this.encryptData(this.loginDetails.password, passphrase),
+        // };
+
+        //console.log('Axios Base URL from Component:', this.$axios.defaults.baseURL);
+
+        //const baseUrl = process.env.BASEURL;
+
+        //const response = await this.axios.post(`${baseUrl}auth/login/`, this.loginDetails);
+        const response = await this.axios.post('auth/login/', this.loginDetails);
+
+        console.log('Login successful', response.data);
 
       }
-      catch{
+      catch(err){
+        this.loading = false;
         this.error = true;
-        this.errorMsg = "Access Denied! Try again.";
-
+        this.errorMsg = err.response ? err.response.data.message : "Access Denied! Try again.";
       }finally {
         this.loading = false;
         setTimeout(() => {
@@ -282,12 +292,12 @@ export default {
               }
 
               input{
-                @apply  shadow-sm  w-full rounded-lg px-8 py-4 text-sm
+                @apply  shadow-sm  w-full rounded-lg px-8 py-4 text-base font-medium 
                 border-none outline-none 
                 ring-1 ring-inset ring-[#D4D6D9];
                 
                 @screen lg {
-                  @apply bg-[#104438] bg-opacity-45 text-white text-base ;
+                  @apply bg-[#104438] bg-opacity-45 text-white  ;
                 }
 
                 &::placeholder {

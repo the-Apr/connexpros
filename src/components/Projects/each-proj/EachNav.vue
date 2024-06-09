@@ -1,44 +1,44 @@
 <template>
   <div class="proj-details-nav">
     <router-link 
-      class="link" 
-      :to="{name: 'summary'}"
-      >
+    class="link" 
+    :to="{name: 'summary'}"
+    >
       
       Summary
     </router-link>
 
     <router-link 
-      class="link" 
-      
-      :to="{name: 'milestone'}"
-      >
+    class="link" 
+    
+    :to="{name: 'milestone'}"
+    >
       
       Milestone
     </router-link>
 
     <router-link 
-      class="link" 
-      :to="{name: 'documents'}"
-      >
+    class="link" 
+    :to="{name: 'documents'}"
+    >
       
       Document
     </router-link>
 
     <router-link 
-      class="link" 
-      
-      :to="{name: 'transaction'}"
-      >
+    class="link" 
+    
+    :to="{name: 'transaction'}"
+    >
       
       Transaction
     </router-link>
 
     <router-link 
-      class="link" 
-      
-      :to="{name: 'reports'}"
-      >
+    class="link" 
+    
+    :to="{name: 'reports'}"
+    >
       
       Reports
     </router-link>
@@ -57,8 +57,16 @@ export default {
   .proj-details-nav {
     @apply flex flex-row gap-8 justify-start items-center px-6;
 
+    .link {
+      @apply py-5 text-base font-normal transition-colors;
+
+      &:hover {
+        @apply text-[#104438] ease-in-out;
+      }
+    }
+
     .router-link-exact-active {
-      @apply text-[#104438];
+      @apply text-[#104438] font-bold tracking-wide border-b-2 border-b-[#104438];
     }
   }
 </style>
