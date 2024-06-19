@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-
+  
+  //test
   {
     path: '/test',
     name: 'test',
@@ -20,6 +21,16 @@ const routes = [
   {
     path: '/', 
     redirect: '/dashboard'
+  },
+
+  // sign-up
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: () => import(/* webpackChunkName: "sign-up" */ '@/views/auth/CreateAccount.vue'),
+    meta: {
+      title: 'Sign Up'
+    }
   },
 
   // login
@@ -71,6 +82,7 @@ const routes = [
         meta: {
           title: 'Client'
         },
+        redirect: { name: 'summary' },
     
         children: [
           {
@@ -122,6 +134,15 @@ const routes = [
     ]
   },
 
+  //TAsks
+  {
+    path: '/tasks',
+    name: 'tasks',
+    component: () => import(/* webpackChunkName: "tasks" */ '../views/Tasks.vue'),
+    meta: {
+      title: 'Tasks'
+    },
+  }
   
 ]
 

@@ -37,11 +37,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-wrap {
-  @apply col-span-5;
-
-  @screen lg {
-    @apply col-span-4;
-  }
+  @apply flex-1 ;
 
   .dashboard {
     @apply mx-auto;

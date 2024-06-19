@@ -40,11 +40,8 @@ export default {
 
 <style lang='scss' scoped>
 .projects-wrap{
-  @apply col-span-5 text-black h-full flex flex-col;
+  @apply flex-1 text-black h-full flex flex-col;
 
-  @screen lg{
-    @apply col-span-4
-  }
 
   .doc-body{
     @apply flex flex-col gap-6 justify-start items-start p-4 bg-[#F7F8F8] h-full; 

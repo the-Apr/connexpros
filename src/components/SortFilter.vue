@@ -52,6 +52,18 @@ export default {
       .view,
       .sort{
         @apply flex flex-row gap-1;
+
+        p{
+          @apply text-sm;
+        }
+      }
+
+      span {
+        @apply text-sm;
+
+        @screen lg {
+          @apply text-base;
+        }
       }
     }
   }

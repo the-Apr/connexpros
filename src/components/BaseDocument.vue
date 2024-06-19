@@ -73,16 +73,16 @@ export default {
 
 <style lang='scss' scoped>
   .each-file {
-    @apply flex flex-col gap-4 max-w-[300px] h-[300px];
+    @apply flex flex-col gap-4 max-w-[300px] h-[200px];
 
     .doc-icons {
       @apply text-[20px] font-extralight text-[#141515];
     }
 
     .img-view {
-      @apply bg-[#F4E9D7] flex justify-center items-center h-5/6 rounded-xl relative;
+      @apply bg-[#F4E9D7] flex justify-center items-center h-[150px] rounded-xl relative;
 
-    &:hover {
+      &:hover {
         @apply bg-[#EAE0CE]
       }
 
@@ -96,17 +96,17 @@ export default {
     }
 
     .details-download {
-      @apply h-1/6 flex flex-row justify-between items-center;
+      @apply flex flex-row justify-between items-center;
 
       .name-date {
         @apply  flex flex-col gap-1 items-start ;
 
         .file-name {
-          @apply text-base tracking-wide font-medium;
+          @apply text-sm tracking-wide font-medium;
         }
 
         .folder-date {
-          @apply flex flex-row gap-1;
+          @apply flex flex-row gap-1 text-xs;
         }
       }
     }

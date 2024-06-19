@@ -1,55 +1,24 @@
 <template>
   <!-- folder-wrap -->
-  <div 
-  class="each-file" 
-  v-for="(docData,index) in docDataArray"
-  :key="index">
-
-    <!-- folder -->
-    <router-link :to="{name: 'test'}" class="img-view">
-      <div 
-      
-      @mouseenter="docHovered(index)"
-      @mouseleave="docUnhovered">
-      
-        <fa-icon :icon="['fas', 'folder']" class="folder-icon"/>
-
-        <div class="star-dots" v-show="hoveredIndex === index">
-          <span class="material-symbols-outlined doc-icons">
-            grade
-          </span>
-          <span class="material-symbols-outlined doc-icons">
-            more_vert
-          </span>
-        </div>
-      </div>
-    </router-link>
-
-    <!-- details and download -->
-    <div class="details-download">
-
-      <div class="name-date">
-        <h3 class="file-name">{{docData.folderName}}</h3>
-        <div class="folder-date">
-          <p>Folder •</p>
-          <p>{{docData.folderDate}}</p>
-        </div>
-      </div>
-
-      <span class="material-symbols-outlined doc-icons">
-        download
-      </span>
-    </div>
-
-  </div>
+  <base-document
+    v-for= "(docData, index) in docDataArray" 
+    :key= "index" 
+    :docData= "docData" 
+    :isHovered= "hoveredIndex === index"
+    :onMouseEnter= "() => docHovered(index)"
+    :onMouseLeave= "docUnhovered"
+  />
 
 </template>
 
 <script>
+import BaseDocument from '@/components/BaseDocument.vue';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'SubFolders',
+
+  components: { BaseDocument },
 
   data () {
     return {
@@ -79,44 +48,5 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  .each-file {
-    @apply flex flex-col gap-4 max-w-[300px] h-[300px];
-
-    .doc-icons {
-      @apply text-[30px] font-extralight text-[#141515];
-    }
-
-    .img-view {
-      @apply bg-[#F4E9D7] flex justify-center items-center h-5/6 rounded-xl relative;
-
-      &:hover {
-        @apply bg-[#EAE0CE]
-      }
-
-      .folder-icon {
-        @apply text-[#DCBC86] w-[70px] h-[80px];
-      }
-
-      .star-dots{
-        @apply flex flex-row gap-3 p-1 absolute top-4 right-4;
-      }
-    }
-
-    .details-download {
-      @apply h-1/6 flex flex-row justify-between items-center;
-
-      .name-date {
-        @apply  flex flex-col gap-1 items-start ;
-
-        .file-name {
-          @apply text-base tracking-wide font-medium;
-        }
-
-        .folder-date {
-          @apply flex flex-row gap-1;
-        }
-      }
-    }
-
-  }
+  
 </style>

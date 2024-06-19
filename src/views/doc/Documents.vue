@@ -14,12 +14,12 @@
           <template v-if="showAllFiles">
 
             <base-document
-            v-for="(docData, index) in docDataArray" 
-            :key="index" 
-            :docData="docData" 
-            :isHovered="hoveredIndex === index"
-            :onMouseEnter="() => docHovered(index)"
-            :onMouseLeave="docUnhovered"
+            v-for= "(docData, index) in docDataArray" 
+            :key= "index" 
+            :docData= "docData" 
+            :isHovered= "hoveredIndex === index"
+            :onMouseEnter= "() => docHovered(index)"
+            :onMouseLeave= "docUnhovered"
             />
             
           </template>
@@ -48,6 +48,7 @@ const DocSideNav  = defineAsyncComponent(() => import('@/components/Documents/Do
 
 export default {
   name: 'Documents',
+  
   components: { NavHeader, DocSideNav, FolderWrap, SortFilter, BaseDocument },
 
   data () {
@@ -83,65 +84,66 @@ export default {
 
 <style lang='scss' scoped>
 .document-wrap{
-  @apply col-span-5 text-black h-full flex flex-col;
+  @apply flex-1 text-black h-full flex flex-col;
 
-  @screen lg {
-    @apply col-span-4
-  }
 
   .full-body{
-    @apply flex flex-row gap-3 divide-x-2 grow;
+    @apply flex flex-row gap-1 divide-x-2 grow;
 
     .doc-body{
-      @apply flex flex-col gap-6 justify-start items-start h-full w-3/4 p-14; 
+      @apply flex flex-col gap-4 justify-start items-start h-full w-3/4 flex-1 p-6; 
+
+      @screen lg {
+        @apply p-12
+      }
 
       .all-files {
-        @apply p-2 grid grid-cols-3 gap-8 w-full;
+        @apply p-2 grid grid-cols-3 gap-4 w-full;
 
         @screen xl{
-          @apply grid-cols-4;
+          @apply grid-cols-4 gap-6;
         }
 
-        .each-file {
-           @apply flex flex-col gap-4 max-w-[300px] h-[300px];
+        // .each-file {
+        //    @apply flex flex-col gap-4 max-w-[300px] h-[300px];
 
-           .doc-icons {
-             @apply text-[20px] font-extralight text-[#141515];
-           }
+        //    .doc-icons {
+        //      @apply text-[20px] font-extralight text-[#141515];
+        //    }
 
-           .img-view {
-             @apply bg-[#F4E9D7] flex justify-center items-center h-5/6 rounded-xl relative;
+        //    .img-view {
+        //      @apply bg-[#F4E9D7] flex justify-center items-center h-5/6 rounded-xl relative;
 
-            &:hover {
-               @apply bg-[#EAE0CE]
-             }
+        //     &:hover {
+        //        @apply bg-[#EAE0CE]
+        //      }
 
-             .folder-icon {
-               @apply text-[#DCBC86] w-[70px] h-[80px];
-             }
+        //      .folder-icon {
+        //        @apply text-[#DCBC86] w-[70px] h-[80px];
+        //      }
 
-             .star-dots{
-               @apply flex flex-row gap-2 p-1 absolute top-3 right-3;
-             }
-           }
+        //      .star-dots{
+        //        @apply flex flex-row gap-2 p-1 absolute top-3 right-3;
+        //      }
+        //    }
 
-           .details-download {
-             @apply h-1/6 flex flex-row justify-between items-center;
+        //    .details-download {
+        //      @apply h-1/6 flex flex-row justify-between items-center;
 
-             .name-date {
-               @apply  flex flex-col gap-1 items-start ;
+        //      .name-date {
+        //        @apply  flex flex-col gap-1 items-start ;
 
-               .file-name {
-                 @apply text-base tracking-wide font-medium;
-               }
+        //        .file-name {
+        //          @apply text-base tracking-wide font-medium;
+        //        }
 
-               .folder-date {
-                 @apply flex flex-row gap-1;
-               }
-             }
-           }
+        //        .folder-date {
+        //          @apply flex flex-row gap-1;
+        //        }
+        //      }
+        //    }
 
-         }
+        // }
       }
     }
   }

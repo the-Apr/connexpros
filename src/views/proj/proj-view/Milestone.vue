@@ -1,8 +1,10 @@
 <template>
-  <div class="milestone-wrap">
+  <div class="milestone-wrap" @click="handleClickOutside">
 
-    <!-- add milestone -->
-    <div class="add-milestone">
+    <add-milestone v-show="showMilestoneModal" @milestone-saved="handleMilestoneSaved"/>
+
+    <!-- add milestone btn-->
+    <div class="add-milestone" @click.stop= "openMilestoneModal">
       <button class="btn">
           
         <span class="material-symbols-outlined btn-icon">
@@ -73,8 +75,33 @@
 </template>
 
 <script>
+import AddMilestone from '@/components/MODAL/AddMilestone.vue'
 export default {
-  name: 'Milestone'
+  components: { AddMilestone },
+  name: 'Milestone',
+
+  data() {
+    return {
+      showMilestoneModal: false
+    }
+  },
+
+  methods: {
+    openMilestoneModal() {
+      
+      this.showMilestoneModal = true;
+    },
+
+    handleMilestoneSaved() {
+      this.showMilestoneModal = false;
+    },
+
+    handleClickOutside() {
+      if (this.showMilestoneModal) {
+        this.handleMilestoneSaved();
+      }
+    }
+  }
 
 }
 </script>

@@ -1,29 +1,53 @@
 <template>
-<div class="login">
-  <div class="login-wrap">
+<div class="register">
+  <div class="register-wrap">
 
     <!-- logo -->
     <div class="logo-space">
       <img src="../../assets/logo.png" alt="connexpros logo">
     </div>
 
-    <!-- login form -->
-    <div class="login-form">
+    <!-- register form -->
+    <div class="register-form">
       <form @submit.prevent= submitForm>
 
-        <h2>Welcome Back</h2>
+        <h2>Welcome, Sign Up</h2>
 
         <!-- login block  -->
         <div class="input-wrap">
 
+          <!-- firstname -->
+          <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <input 
+              type="text"
+              maxlength="30" 
+              placeholder="firstname" 
+              v-model="signUpDetails.firstname" 
+              :class="errorClass('firstname')"
+            >
+          </div>
+
+          <!-- lastname -->
+          <div class="form-group">
+            <label for="lastname">Lastname</label>
+            <input 
+              type="text"
+              maxlength="30" 
+              placeholder="lastname" 
+              v-model="signUpDetails.lastname" 
+              :class="errorClass('lastname')"
+            >
+          </div>
+
           <!-- email -->
           <div class="form-group">
-            <label for="email">Email / Username</label>
+            <label for="email">Email</label>
             <input 
               type="text"
               maxlength="40" 
               placeholder="johndoe@email.com" 
-              v-model="loginDetails.username" 
+              v-model="signUpDetails.username" 
               :class="errorClass('username')"
             >
           </div>
@@ -32,10 +56,10 @@
           <div class="form-group">
             <label for="email">Password</label>
             <input
-              maxlength="20" 
+              maxlength="15" 
               :type="showPassword ? 'text' : 'password'"  
               placeholder="password" 
-              v-model="loginDetails.password"
+              v-model="signUpDetails.password"
               :class="errorClass('password')"
             >
 
@@ -46,10 +70,6 @@
             />
           </div>
 
-          <div class="signed">
-            <input type="checkbox" name="signed">
-            <label for="signed">Keep me signed</label>
-          </div>
 
           <button 
           type="submit" 
@@ -65,14 +85,14 @@
             </span>
 
             <span v-else>
-             Login
+             Sign Up
             </span> 
           </button>
                  
         </div> 
 
         <p class="forgot-password">
-          <router-link :to="{name: 'reset-password'}"> forgot password</router-link>
+          Have an account?<router-link :to="{name: 'login'}"> login</router-link>
         </p>
       </form>
 
@@ -102,8 +122,14 @@ export default {
       errorMsg: '',
       loading: null,
       
-      loginDetails: {
-        username: "",
+      signUpDetails: {
+        user: {
+          firstname: "",
+          laststname: "",
+          email: "",
+          userType: ""
+        },
+        
         password: ""
       }
     }
@@ -112,7 +138,7 @@ export default {
   computed: {
     errorClass() {
       return (field) => ({
-        errorField: this.error && this.emptyFields.includes(field) && !this.loginDetails[field],
+        errorField: this.error && this.emptyFields.includes(field) && !this.signUpDetails[field],
       });
     },
   },
@@ -137,7 +163,7 @@ export default {
     async submitForm() {
       try {
 
-        const { emptyFields, error } = await this.VALIDATE_EMPTY_FIELDS(this.loginDetails);
+        const { emptyFields, error } = await this.VALIDATE_EMPTY_FIELDS(this.signUpDetails);
   
         this.emptyFields = emptyFields;
   
@@ -165,21 +191,19 @@ export default {
       try {
         
         const passphrase = process.env.PASSPHRASE;
-        // const loginData = {
-        //   username: await this.encryptData(this.loginDetails.username, passphrase),
-        //   password: await this.encryptData(this.loginDetails.password, passphrase),
-        // };
+        const signUpData = {
+          firstname: await this.encryptData(this.signInDetails.firstname, passphrase),
+          lastname: await this.encryptData(this.signInDetails.lastname, passphrase),
+          email: await this.encryptData(this.signInDetails.email, passphrase),
+          password: await this.encryptData(this.signInDetails.password, passphrase),
+          user_type: await this.encryptData(this.signInDetails.userType, passphrase),
+          
+        };
 
-        //console.log('Axios Base URL from Component:', this.$axios.defaults.baseURL);
-
-        //const baseUrl = process.env.BASEURL;
-
-        //const response = await this.axios.post(`${baseUrl}auth/login/`, this.loginDetails);
-        const response = await this.axios.post('auth/login/', this.loginDetails);
+        
+        const response = await this.axios.post('auth/create-client/', signUpData);
 
         console.log('Login successful', response.data);
-
-        this.$route.push({name: 'dashboard'})
 
       }
       catch(err){
@@ -201,7 +225,9 @@ export default {
     },
 
     resetForm() {
-      this.loginDetails = {
+      this.signUpDetails = {
+        firstname: "",
+        laststname: "",
         email: "",
         password: ""
       } 
@@ -212,12 +238,12 @@ export default {
 
 <style lang="scss" scoped>
 
-  .login {
+  .register {
     @apply text-white overflow-hidden;
     height: 100vh;
     margin: 0 auto;
 
-    .login-wrap {
+    .register-wrap {
       @apply flex flex-col gap-y-20 justify-center  w-full h-full;
 
       @screen lg {
@@ -240,7 +266,7 @@ export default {
         }
       }
 
-      .login-form {
+      .register-form {
         @apply w-full flex flex-col items-center justify-center p-3 text-[#131615];
 
         @screen lg {
@@ -275,15 +301,7 @@ export default {
             }
       
             .form-group {
-              @apply relative flex flex-col gap-1 items-center justify-center w-full mb-2;
-
-              @screen md {
-                @apply mb-4
-              }
-
-              @screen lg {
-                @apply gap-2;
-              }
+              @apply relative flex flex-col gap-1 items-center justify-center w-full mb-1;
 
               label {
                 @apply text-xs  ml-2 place-self-start;

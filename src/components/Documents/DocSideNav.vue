@@ -3,7 +3,9 @@
     <div class="top">
 
       <div class="search">
-       <fa-icon :icon="['fas', 'magnifying-glass']" class="icon" />
+       <span class="material-symbols-outlined search-icon">
+          search
+        </span>
 
         <input 
           type="text" 
@@ -67,37 +69,50 @@ export default {
 
 <style lang='scss' scoped>
 .side-nav {
-  @apply w-1/4 h-full flex flex-col gap-5 divide-y-2 text-[#515252]; 
+  @apply max-w-[250px] h-full w-full flex flex-col divide-y-2 text-[#515252]; 
 
   p{
-    @apply text-[#515252] text-base font-medium;
+    @apply text-[#515252] text-sm font-medium;
+
+    @screen lg {
+      @apply text-base;
+    }
+  }
+
+  span{
+    @apply text-sm;
+
+    @screen lg {
+      @apply text-base;
+    }
   }
 
 
 
   .top {
-    @apply flex flex-col gap-7 p-5;
+    @apply flex flex-col gap-3 p-3;
+
+    @screen lg {
+      @apply p-5
+    }
 
     .search {
-      @apply w-full flex justify-center items-center relative;
+      @apply w-full flex justify-center items-center relative mb-2;
 
-      .icon{
-      @apply h-[18px] left-[15px] top-[16px] absolute text-[#979797];
+      .search-icon{
+      @apply left-[14px] top-[10px] absolute text-[#979797] text-lg;
       }
 
       input{
         @apply accent-[#00ABF1] shadow-sm ring-1 ring-inset ring-gray-300 outline-none text-black w-full;
         background-color: #f2f7f6;
-        padding: 13px 9px 13px 44px;
+        padding: 10px 9px 10px 44px;
         border: none;
         border-radius: 10px;
 
         &::placeholder {
-          @apply text-[#033549] opacity-45 text-[11px] text-left font-normal;
+          @apply text-[#033549] opacity-45 text-[12px] text-left font-normal;
 
-          @screen md {
-            @apply text-sm;
-          }
         }
 
         &:focus {
@@ -118,7 +133,11 @@ export default {
   }
 
   .bottom {
-    @apply flex flex-col justify-between items-start gap-5 p-5 h-full;
+    @apply flex flex-col justify-between items-start gap-5 p-3 h-full;
+
+    @screen lg {
+      @apply p-5
+    }
 
     .all-files {
       @apply flex flex-col gap-2 justify-center items-center;
@@ -136,11 +155,31 @@ export default {
       }
 
       .btn {
-        @apply flex flex-row gap-3 px-4 py-4 justify-center items-center bg-[#104438] w-full text-white;
+        @apply flex flex-row gap-3 p-2 justify-center items-center bg-[#104438] w-full text-white;
+
+        &:hover{
+          @apply opacity-90;
+        }
+
+        @screen lg {
+          @apply px-4 py-4
+        }
+
+        .btn-icon{
+          @apply text-lg;
+
+          @screen lg{
+            @apply text-xl;
+          }
+        }
 
 
         .btn-title {
-          @apply uppercase font-semibold text-base;
+          @apply uppercase font-medium text-sm;
+
+          @screen lg {
+            @apply font-semibold text-base
+          }
         }
       }
     }

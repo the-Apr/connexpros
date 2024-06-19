@@ -4,19 +4,21 @@
 
     <suspense>
       
-      <router-view />
+      <template #default v-if="showAllAuth">
+        <router-view />
+      </template>
 
-      <!-- <template #default>
+      <template #default v-else>
         <div class="app-wrap">
           <panel-nav/>
           <router-view/>
         </div>
 
-      </template> -->
+      </template>
 
-      <!-- <template #fallback>
+      <template #fallback>
         <spinner/>
-      </template> -->
+      </template>
 
     </suspense>
     
@@ -32,7 +34,47 @@ export default {
 
   components: {
     PanelNav
-   
+  },
+
+  data() {
+    return {
+      showAllAuth: false
+    }
+  },
+
+  created () {
+    this.checkAuthRoute();
+    
+  },
+
+  computed: {
+  },
+
+  watch: {
+    '$route.name': 'checkAuthRoute'
+  },  
+
+  methods: {
+    // fetchGoggleIcons() {
+    //   const link = document.createElement('link');
+    //   link.rel = 'stylesheet';
+    //   link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+    //   document.head.appendChild(link);
+    // },
+
+    checkAuthRoute() {
+      if(
+        this.$route.name === 'login' ||
+        this.$route.name === "sign-up" ||
+        this.$route.name === "reset-password"
+      ) {
+        this.showAllAuth = true;
+
+        return;
+      }
+
+      this.showAllAuth = false;
+    }
   }
 }
 </script>
@@ -55,6 +97,8 @@ export default {
   // }
 
   .app-wrap {
-    @apply grid grid-cols-5 gap-1 h-full w-full overflow-x-hidden;
+    @apply  flex flex-row gap-1 h-full w-full overflow-x-hidden;
   }
+
+  //grid grid-cols-5
 </style>

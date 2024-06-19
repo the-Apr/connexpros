@@ -42,27 +42,27 @@ export default {
 
 <style lang="scss" scoped>
 .nav-header-wrap {
-  @apply col-span-4 bg-[#F7F8F8];
+  @apply bg-[#F7F8F8];
 
   .nav-header {
-    @apply flex flex-row gap-4 justify-between items-center px-10 border-b-2 border-[#EAEBEB] h-[90px];
+    @apply flex flex-row gap-4 justify-between items-center px-10 border-b-2 border-[#EAEBEB] h-[80px];
 
     h2{
-      @apply text-lg font-bold text-[#15202C];
+      @apply text-[16px] font-bold text-[#15202C];
     }
 
     .nav-details {
       @apply flex flex-row gap-4 items-center content-center;
 
       .bio-icon {
-        @apply w-9 h-7 text-[#E3E3E3]
+        @apply w-8 h-5 text-[#E3E3E3]
       }
 
       .search {
         @apply w-full flex justify-center items-center relative;
 
        .icon{
-        @apply h-[18px] left-[17px] top-[18px] absolute text-[#979797];
+        @apply h-[14px] left-[17px] top-[18px] absolute text-[#979797];
         }
 
         input{
@@ -73,11 +73,7 @@ export default {
           border-radius: 10px;
 
           &::placeholder {
-            @apply text-[#033549] opacity-45 text-[11px] text-left font-normal;
-
-            @screen md {
-              @apply text-sm;
-            }
+            @apply text-[#033549] opacity-45 text-[12px] text-left font-normal;
           }
 
           &:focus {

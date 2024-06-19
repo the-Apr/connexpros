@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-overlay" >
+  <div class="modal-overlay">
     <div class="modal" >
       
       <form @submit.prevent= 'submitForm'>
@@ -98,18 +98,20 @@ import { ElNotification } from 'element-plus'
 import CryptoJS from 'crypto-js';
 
 export default {
-  // props: {
-  //   show: {
-  //     type: Boolean,
-  //     required: true,
-  //   },
+  props: {
+    // show: {
+    //   type: Boolean,
+    //   required: true,
+    // },
 
-  //   routeHandler: { 
-  //     type: Function,
-  //     default: () => {}
-  //   }
-  // },
-
+    toggleModal: { 
+      type: Function,
+      default: () => {}
+    }
+  },
+  name: 'AddMilestone',
+  
+  emits: ['milestone-saved'],
 
   data() {
     return {
@@ -148,6 +150,14 @@ export default {
   },
 
   methods: {
+    // checkClick(e) {
+      
+    //   if (this.$refs.milestoneWrap.contains(e.target)) {
+    //     console.log('clicked out');
+    //     this.toggleModal();
+    //   }
+    // },
+
     closeAndRoute() {
       this.showModal = false; 
 
@@ -211,6 +221,8 @@ export default {
             'Content-Type': 'application/json' 
           }
         });
+
+        this.$emit('milestone-saved');
 
         console.log('Save successful', response.data);
 

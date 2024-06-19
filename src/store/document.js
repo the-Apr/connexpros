@@ -3,26 +3,31 @@ export default {
   namespaced: true,
 
   state: {
-   folderDataArray: []
+   folderDataArray: [],
+
+   filesInFolderArray: []
   },
 
   getters: {
-    DOCUMENT_DATA_ARRAY(state){
+    PARENT_FOLDER_ARRAY(state){
       return state.folderDataArray;
     }
   },
 
   mutations: {
-    SET_ALL_FOLDERS(state, payload) {
+    SET_PARENT_FOLDERS(state, payload) {
       state.folderDataArray = payload;
-    }
+    },
+    SET_FILES_IN_FOLDER(state, payload) {
+      state.folderDataArray = payload;
+    },
   },
 
   actions: {
-    async fetchAllFolders ({commit}) {
+    async FETCH_PARENT_FOLDERS ({commit}) {
       try{
 
-        const response = await this.axios.get('folders');
+        const response = await this.axios.get('parent-files');
         response.forEach(async folder => {
           if(!state.folderDataArray.some((folderInfo) => folderInfo.folderId === folder.id)) {
             commit('SET_ALL_FOLDERS', response.data);
@@ -36,6 +41,24 @@ export default {
         return { error: true, errorMsg };
       }
 
+    },
+
+    async FETCH_FILES_IN_FOLDER () {
+      try{
+
+        const response = await this.axios.get('folders/1/files');
+        response.forEach(async folder => {
+          if(!state.filesInFolderArray.some((fileInfo) => fileInfo.fileId === file.id)) {
+            commit('SET_FILES_IN_FOLDER', response.data);
+          }
+        });
+
+        return {}
+      } catch (error) {
+        const errorMsg = error.response ? error.response.message : "Failed to fetch folders.";
+        
+        return { error: true, errorMsg };
+      }
     },
 
   }
