@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '../store/index';
 
 const routes = [
   
@@ -59,7 +60,8 @@ const routes = [
     name: 'dashboard',
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
     meta: {
-      title: 'Dashboard'
+      title: 'Dashboard',
+      requiresAuth: true
     },
   },
 
@@ -73,6 +75,7 @@ const routes = [
     },
 
     children: [
+
       // client project
       {
         path: 'client-proj',
@@ -153,8 +156,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = `${to.meta.title} | ConnexPros`;
+
+  const isAuthenticated = store.getters['auth/IS_AUTH'];
   
-  next();
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next({ name: 'login' });
+  } else {
+    next();
+  }
 })
 
 export default router

@@ -71,9 +71,16 @@
                  
         </div> 
 
-        <p class="forgot-password">
-          <router-link :to="{name: 'reset-password'}"> forgot password</router-link>
-        </p>
+        <div class="forgot-password">
+          <p>
+            Don't Have an account?<router-link :to="{name: 'sign-up'}"> Sign up</router-link>
+          </p>
+
+          <p>
+            <router-link :to="{name: 'reset-password'}"> forgot password</router-link>
+          </p>
+        </div>
+
       </form>
 
       <div class="privacy-policy">
@@ -119,6 +126,7 @@ export default {
 
   methods: {
     ...mapActions ('formValid', ['VALIDATE_EMPTY_FIELDS']),
+    ...mapActions('auth', ['ASSIGN_TOKEN']),
 
     toggleShowPassword(){
       this.showPassword = !this.showPassword
@@ -170,16 +178,11 @@ export default {
         //   password: await this.encryptData(this.loginDetails.password, passphrase),
         // };
 
-        //console.log('Axios Base URL from Component:', this.$axios.defaults.baseURL);
-
-        //const baseUrl = process.env.BASEURL;
-
-        //const response = await this.axios.post(`${baseUrl}auth/login/`, this.loginDetails);
         const response = await this.axios.post('auth/login/', this.loginDetails);
 
-        console.log('Login successful', response.data);
+        localStorage.setItem('authToken', response.data.access);
 
-        this.$route.push({name: 'dashboard'})
+        this.$router.push({ name: 'dashboard' })
 
       }
       catch(err){
@@ -352,12 +355,17 @@ export default {
           }
 
           .forgot-password {
-            @apply cursor-pointer text-sm uppercase no-underline underline-offset-2 opacity-50;
-            transition: 0.5s ease all;
-      
-            &:hover {
-            @apply underline;
+            @apply cursor-pointer text-sm uppercase opacity-50 flex flex-col gap-3;
+
+            a{
+              @apply no-underline underline-offset-2 ;
+              transition: 0.5s ease all;
+
+              &:hover {
+                @apply underline;
+              }
             }
+      
           }
 
         } 

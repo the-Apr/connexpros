@@ -1,7 +1,7 @@
 <template>
-  <div class="milestone-wrap" @click="handleClickOutside">
+  <div class="milestone-wrap">
 
-    <add-milestone v-show="showMilestoneModal" @milestone-saved="handleMilestoneSaved"/>
+    <add-milestone v-show="showMilestoneModal" @milestone-saved="handleMilestoneSaved" :toggleModal="handleClickOutside"/>
 
     <!-- add milestone btn-->
     <div class="add-milestone" @click.stop= "openMilestoneModal">
@@ -88,7 +88,6 @@ export default {
 
   methods: {
     openMilestoneModal() {
-      
       this.showMilestoneModal = true;
     },
 

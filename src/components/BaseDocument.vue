@@ -80,7 +80,7 @@ export default {
     }
 
     .img-view {
-      @apply bg-[#F4E9D7] flex justify-center items-center h-[150px] rounded-xl relative;
+      @apply bg-[#F4E9D7] flex justify-center items-center h-[150px] w-[200px]  rounded-xl relative;
 
       &:hover {
         @apply bg-[#EAE0CE]

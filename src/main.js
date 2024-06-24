@@ -11,9 +11,9 @@ import 'element-plus/dist/index.css'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-// import DayspanVuetify from 'dayspan-vuetify';
-// import 'material-design-icons-iconfont/dist/material-design-icons.css'
-// import 'dayspan-vuetify/dist/lib/dayspan-vuetify.min.css';
+import vuetify from './plugins/vuetify'
+import '@mdi/font/css/materialdesignicons.css'
+
 
 const Spinner = defineAsyncComponent(() => import('@/components/UI/BaseLoading.vue'));
 
@@ -40,7 +40,8 @@ app.use(store)
 app.use(router)
 app.use(ElementPlus)
 app.use(VueAxios, axios);
-//app.use(DayspanVuetify)
+
+app.use(vuetify);
 
 app.component('fa-icon', FontAwesomeIcon)
 app.component('spinner', Spinner)

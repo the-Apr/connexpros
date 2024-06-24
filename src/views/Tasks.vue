@@ -1,25 +1,37 @@
 <template>
-  <v-app id="dayspan" v-cloak>
-    <ds-calendar-app :calendar="calendar"></ds-calendar-app>
+  <v-app>
+    <v-sheet height="600">
+      <v-calendar
+        ref="calendar"
+        v-model="focus"
+        :events="events"
+        color="primary"
+        @click:event="handleEventClick"
+        @click:day="handleDayClick"
+      ></v-calendar>
+    </v-sheet>
   </v-app>
 </template>
 
 <script>
-import { Calendar } from 'dayspan'
-
 export default {
-  name: 'Tasks',
-
   data() {
     return {
-      calendar: Calendar.months()
-    }
-  }
-
-
-}
+      focus: '',
+      events: [],
+    };
+  },
+  methods: {
+    handleEventClick({ event }) {
+      // Logic to handle event click
+    },
+    handleDayClick({ date }) {
+      // Logic to handle day click
+    },
+  },
+};
 </script>
 
-<style lang='scss' scoped>
-
+<style>
+@import 'vuetify/dist/vuetify.min.css';
 </style>

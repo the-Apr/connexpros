@@ -98,11 +98,11 @@ export default {
       }
 
       .all-files {
-        @apply p-2 grid grid-cols-3 gap-4 w-full;
+        @apply p-2 flex flex-row gap-4 w-full;
 
-        @screen xl{
-          @apply grid-cols-4 gap-6;
-        }
+        // @screen xl{
+        //   @apply grid-cols-4 gap-6;
+        // }
 
         // .each-file {
         //    @apply flex flex-col gap-4 max-w-[300px] h-[300px];

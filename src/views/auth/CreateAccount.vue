@@ -17,7 +17,7 @@
         <div class="input-wrap">
 
           <!-- firstname -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="firstname">Firstname</label>
             <input 
               type="text"
@@ -26,10 +26,10 @@
               v-model="signUpDetails.firstname" 
               :class="errorClass('firstname')"
             >
-          </div>
+          </div> -->
 
           <!-- lastname -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="lastname">Lastname</label>
             <input 
               type="text"
@@ -38,7 +38,7 @@
               v-model="signUpDetails.lastname" 
               :class="errorClass('lastname')"
             >
-          </div>
+          </div> -->
 
           <!-- email -->
           <div class="form-group">
@@ -47,8 +47,8 @@
               type="text"
               maxlength="40" 
               placeholder="johndoe@email.com" 
-              v-model="signUpDetails.username" 
-              :class="errorClass('username')"
+              v-model="signUpDetails.email" 
+              :class="errorClass('email')"
             >
           </div>
 
@@ -123,13 +123,7 @@ export default {
       loading: null,
       
       signUpDetails: {
-        user: {
-          firstname: "",
-          laststname: "",
-          email: "",
-          userType: ""
-        },
-        
+        email: "",
         password: ""
       }
     }
@@ -173,7 +167,7 @@ export default {
           this.errorModal();
 
         } else {
-        
+          console.log('clicked')
           this.signIn();
         }
       }
@@ -186,17 +180,18 @@ export default {
     },
 
     async signIn() {
+      console.log('running')
       
       this.loading = true;
       try {
         
         const passphrase = process.env.PASSPHRASE;
         const signUpData = {
-          firstname: await this.encryptData(this.signInDetails.firstname, passphrase),
-          lastname: await this.encryptData(this.signInDetails.lastname, passphrase),
-          email: await this.encryptData(this.signInDetails.email, passphrase),
+          user: {
+            username: await this.encryptData(this.signInDetails.email, passphrase)
+          },
+         
           password: await this.encryptData(this.signInDetails.password, passphrase),
-          user_type: await this.encryptData(this.signInDetails.userType, passphrase),
           
         };
 

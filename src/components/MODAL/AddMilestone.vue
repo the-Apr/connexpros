@@ -1,7 +1,7 @@
 <template>
-  <div class="modal-overlay">
-    <div class="modal" >
-      
+  <div class="modal-overlay" @click="checkClick" ref="milestoneWrap">
+    <div class="modal">
+
       <form @submit.prevent= 'submitForm'>
 
         <h2>Add Milestone</h2>
@@ -133,6 +133,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters('auth', ['GET_TOKEN']),
+
     errorClass() {
       return (field) => ({
         errorField: this.error && this.emptyFields.includes(field) && !this.milestoneData[field],
@@ -150,13 +152,14 @@ export default {
   },
 
   methods: {
-    // checkClick(e) {
+    checkClick(e) {
+      console.log('target', e.target);
+      console.log('ref', this.$refs.milestoneWrap)
       
-    //   if (this.$refs.milestoneWrap.contains(e.target)) {
-    //     console.log('clicked out');
-    //     this.toggleModal();
-    //   }
-    // },
+      if(e.target === this.$refs.milestoneWrap) {
+        this.toggleModal();
+      }
+    },
 
     closeAndRoute() {
       this.showModal = false; 
@@ -214,7 +217,7 @@ export default {
         // };
 
         //const token = localStorage.getItem('authToken'); 
-        const token =  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4MDk5NTY1LCJpYXQiOjE3MTc4NDAzNjUsImp0aSI6IjgzMTk3MGVjMDZmODRlMjA5YWYzY2I1YzY0NzI5ZjlkIiwidXNlcl9pZCI6IjFlYTkyYjhmLTQ0YTItNDExZS1iNThjLTI4MTVhODU4NTEzMyJ9.aRrn7iW_-T13kNPKGOmEQdam40FCWGFO-6OGE8ZkQdw';
+        const token = this.GET_TOKEN;
         const response = await this.axios.post('milestones/', this.milestoneData, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -266,108 +269,112 @@ export default {
 
   .modal-overlay {
     position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5); 
     z-index: 9; 
   }
 
-  .modal {
-    display: flex;
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    padding: 0 10px;
-    margin: 0 3px;
+  // .modal {
+  //   display: flex;
+  //   position: fixed;
+  //   justify-content: center;
+  //   align-items: center;
+  //   height: 100vh;
+  //   width: 100%;
+  //   padding: 0 10px;
+  //   margin: 0 3px;
 
-    @screen md {
-      @apply px-2 mx-1
+  //   @screen md {
+  //     @apply px-2 mx-1
+  //   }
+
+    
+  // }
+
+  form { 
+    @apply p-8 relative flex flex-col  gap-y-4 items-center justify-center w-[800px] text-[#141515] bg-white rounded-2xl ;
+    
+    h2 { 
+      @apply text-2xl font-semibold tracking-wide mb-1 place-self-start;
+
     }
 
-    form { 
-      @apply p-8 relative flex flex-col  gap-y-4 items-center justify-center w-[800px] text-[#141515] bg-white rounded-2xl ;
-      
-      h2 { 
-        @apply text-2xl font-semibold tracking-wide mb-1 place-self-start;
+    .input-wrap {
+      @apply flex flex-col gap-4 justify-center items-center w-full py-2; 
 
-      }
-  
-      .input-wrap {
-        @apply flex flex-col gap-4 justify-center items-center w-full py-2; 
-  
-        .form-group {
-          @apply relative flex flex-col gap-2 items-center justify-center w-full mb-2;
+      .form-group {
+        @apply relative flex flex-col gap-2 items-center justify-center w-full mb-2;
 
-          label {
-            @apply text-xs  ml-2 place-self-start;
+        label {
+          @apply text-xs  ml-2 place-self-start;
 
-            @screen md {
-              @apply text-base font-medium tracking-wider mb-1;
-            }
+          @screen md {
+            @apply text-base font-medium tracking-wider mb-1;
           }
+        }
 
-          input,
-          select{
-            @apply  shadow-sm  w-full rounded-lg px-8 py-4 text-base font-medium 
-            border-none outline-none 
-            ring-1 ring-inset ring-[#D0D5DD];
+        input,
+        select{
+          @apply  shadow-sm  w-full rounded-lg px-8 py-4 text-base font-medium 
+          border-none outline-none 
+          ring-1 ring-inset ring-[#D0D5DD];
 
-            &::placeholder{
-              @apply text-[#B6B9B9]  text-base text-left font-normal;
-
-            }
-
-            &:focus {
-              @apply ring-2 ring-[#DCBC86] transition ease-in-out duration-500;
-            }
-    
-          }
-
-          input[type='date']::-webkit-input-placeholder{
+          &::placeholder{
             @apply text-[#B6B9B9]  text-base text-left font-normal;
+
           }
 
-          .errorField {
-            box-shadow: 0 0 0 2px #dc2626 inset !important;
+          &:focus {
+            @apply ring-2 ring-[#DCBC86] transition ease-in-out duration-500;
           }
-        }
-
-        .signed {
-          @apply flex gap-3 place-self-start;
-
-          input[type='checkbox'] {
-            @apply accent-[#DCBC86] text-white border-none;
-          }
-        }
-
-        .save-btn {
-          @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors text-sm text-white tracking-wide font-semibold leading-6 mt-2;
-
-          &:hover {
-            @apply bg-opacity-80 ease-in-out;
-          }
-        }
-
-        .error-msg{
-          @apply flex gap-2 items-center text-red-700;
-        }
-      }
-
-      .forgot-password {
-        @apply cursor-pointer text-sm uppercase no-underline underline-offset-2 opacity-50;
-        transition: 0.5s ease all;
   
-        &:hover {
-        @apply underline;
+        }
+
+        input[type='date']::-webkit-input-placeholder{
+          @apply text-[#B6B9B9]  text-base text-left font-normal;
+        }
+
+        .errorField {
+          box-shadow: 0 0 0 2px #dc2626 inset !important;
         }
       }
 
-    } 
-    
-  }
+      .signed {
+        @apply flex gap-3 place-self-start;
+
+        input[type='checkbox'] {
+          @apply accent-[#DCBC86] text-white border-none;
+        }
+      }
+
+      .save-btn {
+        @apply flex justify-center items-center px-6 py-4 bg-[#DCBC86] w-full rounded-lg transition-colors text-sm text-white tracking-wide font-semibold leading-6 mt-2;
+
+        &:hover {
+          @apply bg-opacity-80 ease-in-out;
+        }
+      }
+
+      .error-msg{
+        @apply flex gap-2 items-center text-red-700;
+      }
+    }
+
+    .forgot-password {
+      @apply cursor-pointer text-sm uppercase no-underline underline-offset-2 opacity-50;
+      transition: 0.5s ease all;
+
+      &:hover {
+      @apply underline;
+      }
+    }
+
+  } 
 
 </style>
