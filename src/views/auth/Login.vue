@@ -188,6 +188,7 @@ export default {
       catch(err){
         this.loading = false;
         this.error = true;
+        this.errorModal();
         this.errorMsg = err.response ? err.response.data.message : "Access Denied! Try again.";
       }finally {
         this.loading = false;

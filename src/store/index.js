@@ -4,6 +4,7 @@ import formValid from './formValid';
 import auth from './auth';
 import documentPanel from './panelData/documentPanel';
 import document from './document';
+import project from './project'
 
 export default createStore({
 
@@ -11,7 +12,8 @@ export default createStore({
     formValid,
     auth,
     documentPanel,
-    document
+    document,
+    project
   },
 
   state: {

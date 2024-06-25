@@ -84,6 +84,10 @@
               />
             </span>
 
+            <span v-else-if="signInSuccess">
+              <fa-icon :icon="['fas', 'check']" />
+            </span>
+
             <span v-else>
              Sign Up
             </span> 
@@ -116,6 +120,7 @@ export default {
 
   data() {
     return {
+      signInSuccess: null,
       showPassword: null,
       emptyFields: [],
       error: null,
@@ -163,12 +168,11 @@ export default {
   
         if (error) {
           this.error = true;
-          this.errorMsg = "Invalid username or password";
+          this.errorMsg = "Enter valid username or password";
           this.errorModal();
 
         } else {
-          console.log('clicked')
-          this.signIn();
+          this.signUp();
         }
       }
       finally {
@@ -179,37 +183,43 @@ export default {
       }
     },
 
-    async signIn() {
-      console.log('running')
+    async signUp() {
       
       this.loading = true;
+
       try {
         
         const passphrase = process.env.PASSPHRASE;
         const signUpData = {
           user: {
-            username: await this.encryptData(this.signInDetails.email, passphrase)
+            username: await this.encryptData(this.signUpDetails.email, passphrase)
           },
          
-          password: await this.encryptData(this.signInDetails.password, passphrase),
+          password: await this.encryptData(this.signUpDetails.password, passphrase),
           
         };
 
         
         const response = await this.axios.post('auth/create-client/', signUpData);
 
-        console.log('Login successful', response.data);
+        this.loading = false;
+        this.signInSuccess = true;
+
+        console.log('sign up successful', response.data);
 
       }
       catch(err){
         this.loading = false;
         this.error = true;
-        this.errorMsg = err.response ? err.response.data.message : "Access Denied! Try again.";
-      }finally {
+        this.errorMsg = err.response ? err.response.data.message : "Couldn't sign up. Try again.";
+        this.errorModal();
+      }
+      finally {
         this.loading = false;
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
+          this.signInSuccess = false;
           this.resetForm();
         }, 12000);
       }

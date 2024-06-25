@@ -62,16 +62,16 @@ export default {
           navTitle: 'Projects',
           navRoute: 'proj'
         },
-        {
-          navImg: 'briefcase',
-          navTitle: 'Dashboard',
-          navRoute: ''
-        },
-        {
-          navImg: 'briefcase',
-          navTitle: 'Dashboard',
-          navRoute: ''
-        },
+        // {
+        //   navImg: 'briefcase',
+        //   navTitle: 'Dashboard',
+        //   navRoute: 'xyz'
+        // },
+        // {
+        //   navImg: 'briefcase',
+        //   navTitle: 'Dashboard',
+        //   navRoute: ''
+        // },
         
       ]
     }

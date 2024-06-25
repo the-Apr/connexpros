@@ -21,7 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash, faUser } from '@fortawesome/free-regular-svg-icons';
 
-import {faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder,faDownload, faSpinner} from '@fortawesome/free-solid-svg-icons'
+import {faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder,faDownload, faSpinner, faCheck} from '@fortawesome/free-solid-svg-icons'
 
 axios.defaults.baseURL = process.env.BASEURL
 
@@ -30,7 +30,7 @@ library.add(
   faEye, faEyeSlash, faUser, 
 
   // solid
-  faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder, faDownload, faSpinner
+  faCircleNotch, faExclamationCircle, faBriefcase,faArrowRightFromBracket, faEnvelope, faBell, faMagnifyingGlass, faFolder, faDownload, faSpinner, faCheck
 );
 
 

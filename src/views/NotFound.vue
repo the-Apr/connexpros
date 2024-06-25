@@ -15,10 +15,19 @@ export default {
 
 <style lang='scss' scoped>
   .not-found{
-    @apply col-span-4 flex flex-col gap-4 justify-center items-center;
+    @apply flex flex-col gap-4 justify-center items-center h-full bg-[#104438] text-white;;
 
     h2{
-      @apply text-lg uppercase;
+      @apply text-lg uppercase font-medium;
+    }
+
+    a{
+      @apply no-underline underline-offset-2 opacity-70 font-medium text-base;
+      transition: 0.5s ease all;
+
+      &:hover {
+        @apply underline;
+      }
     }
   }
 </style>

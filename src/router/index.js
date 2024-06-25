@@ -16,6 +16,9 @@ const routes = [
     path: '/:catchAll(.*)',
     name: 'not-found',
     component:  () => import(/* webpackChunkName: "notFound" */ '../views/NotFound.vue'),
+    meta: {
+      title: 'Not Found'
+    }
   },
 
   // redirect
@@ -61,7 +64,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
     meta: {
       title: 'Dashboard',
-      requiresAuth: true
+      //requiresAuth: true
     },
   },
 
@@ -154,16 +157,32 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   document.title = `${to.meta.title} | ConnexPros`;
 
+  store.commit('auth/SET_LOADING', true);
+
   const isAuthenticated = store.getters['auth/IS_AUTH'];
-  
+
+  console.log(isAuthenticated)
+
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    store.commit('auth/SET_LOADING', false);
     next({ name: 'login' });
   } else {
+    if (to.name === 'not-found') {
+      store.commit('auth/SET_NOT_FOUND', true); 
+    } else {
+      store.commit('auth/SET_NOT_FOUND', false); 
+    }
+
     next();
   }
-})
+  
+});
+
+router.afterEach(() => {
+  store.commit('auth/SET_LOADING', false); 
+});
 
 export default router

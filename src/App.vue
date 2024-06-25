@@ -2,24 +2,28 @@
   
   <div id="app">
 
+    <spinner v-if="loading"/>
+
     <suspense>
       
       <template #default v-if="showAllAuth">
         <router-view />
       </template>
-
+      
       <template #default v-else>
-        <div class="app-wrap">
+
+        <transition name="scale-fade" mode="out-in" >
+        <div class="app-wrap" v-if="!notFound && isAuthenticated">
           <panel-nav/>
           <router-view/>
         </div>
-
+        </transition>
       </template>
-
+      
       <template #fallback>
         <spinner/>
       </template>
-
+      
     </suspense>
     
   </div>
@@ -27,6 +31,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import PanelNav from './components/Panel/PanelNav.vue'
 
 export default {
@@ -44,10 +49,23 @@ export default {
 
   created () {
     this.checkAuthRoute();
-    
+  },
+
+  mounted(){
+    this.loginRedirect();
   },
 
   computed: {
+    ...mapState('auth', ['notFound']),
+    ...mapGetters('auth', ['IS_LOADING', 'IS_AUTH']),
+
+    loading(){
+      return this.IS_LOADING;
+    },
+
+    isAuthenticated() {
+      return this.IS_AUTH;
+    }
   },
 
   watch: {
@@ -55,18 +73,14 @@ export default {
   },  
 
   methods: {
-    // fetchGoggleIcons() {
-    //   const link = document.createElement('link');
-    //   link.rel = 'stylesheet';
-    //   link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
-    //   document.head.appendChild(link);
-    // },
 
     checkAuthRoute() {
       if(
         this.$route.name === 'login' ||
         this.$route.name === "sign-up" ||
-        this.$route.name === "reset-password"
+        this.$route.name === "reset-password" ||
+        this.$route.name === "not-found"
+        
       ) {
         this.showAllAuth = true;
 
@@ -74,6 +88,12 @@ export default {
       }
 
       this.showAllAuth = false;
+    },
+
+    loginRedirect() {
+      if(!this.notFound && !this.isAuthenticated) {
+        this.$router.push({name: 'login'})
+      }
     }
   }
 }
@@ -100,5 +120,15 @@ export default {
     @apply  flex flex-row gap-1 h-full w-full overflow-x-hidden;
   }
 
-  //grid grid-cols-5
+  .scale-fade-enter-active,
+  .scale-fade-leave-active {
+    transition: transform 1s ease, opacity 1s ease;
+  }
+
+  .scale-fade-enter-from {
+    /* transform: scale(0.8); */
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
 </style>
