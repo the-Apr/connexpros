@@ -84,7 +84,7 @@ export default {
 
 <style lang='scss' scoped>
 .document-wrap{
-  @apply flex-1 text-black h-full flex flex-col;
+  @apply flex-1 text-black h-full overflow-y-scroll flex flex-col;
 
 
   .full-body{

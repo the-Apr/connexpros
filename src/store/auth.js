@@ -12,7 +12,7 @@ export default {
 
   getters: {
 
-    GET_TOKEN(state) {
+    async GET_TOKEN(state) {
       return state.token;
     },
 
@@ -49,15 +49,15 @@ export default {
 
       commit('SET_LOADING', false);
 
-      setInterval(() => {
-        if (isTokenExpired(state.token)) {
+      // setInterval(() => {
+      //   if (isTokenExpired(state.token)) {
           
-          commit('SET_TOKEN', null);
-          localStorage.clearItem('authToken');
+      //     commit('SET_TOKEN', null);
+      //     localStorage.clearItem('authToken');
           
-          router.push({ name: 'login' });
-        }
-      }, 60000);
+      //     router.push({ name: 'login' });
+      //   }
+      // }, 60000);
     }
   },
 }

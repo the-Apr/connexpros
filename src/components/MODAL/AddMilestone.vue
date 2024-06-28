@@ -26,8 +26,8 @@
             <label for="date">Due Date</label>
             <input
               type="date" 
-              v-model="milestoneData.due_date"
-              :class="errorClass('due_date')"
+              v-model="milestoneData.dueDate"
+              :class="errorClass('dueDate')"
             >
           </div>
 
@@ -40,13 +40,13 @@
               min="1"
               max="3"
               maxlength="1"
-              v-model="milestoneData.priority_level"
-              :class="errorClass('priority_level')"
+              v-model="milestoneData.priorityLvl"
+              :class="errorClass('priorityLvl')"
             >
           </div>
 
           <!-- status -->
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="status">Status</label>
             <select 
             id="status"
@@ -55,14 +55,14 @@
               <option value="In progress"> In Progress </option> 
               <option value="Complete"> Complete</option>
             </select>
-          </div>
+          </div> -->
 
           <div class="signed">
             <input 
             type="checkbox" 
             name="signed"
-            v-model="milestoneData.add_to_calendar"
-            :class="errorClass('add_to_calendar')">
+            v-model="milestoneData.addToCalendar"
+            :class="errorClass('addToCalendar')">
             <label for="signed">Save to calendar</label>
           </div>
 
@@ -79,6 +79,10 @@
               />
             </span>
 
+            <span v-else-if="milestoneSuccess">
+              <fa-icon :icon="['fas', 'check']" />
+            </span>
+
             <span v-else>
              Save
             </span> 
@@ -93,7 +97,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { ElNotification } from 'element-plus'
 import CryptoJS from 'crypto-js';
 
@@ -116,6 +120,7 @@ export default {
   data() {
     return {
       //showModal: this.show 
+      milestoneSuccess: false,
       emptyFields: [],
       error: null,
       errorMsg: '',
@@ -124,10 +129,10 @@ export default {
       milestoneData: {
         project: 1,
         title: "",
-        due_date: null,
-        priority_level: null,
+        dueDate: null,
+        priorityLvl: null,
         //status: "",
-        add_to_calendar: false
+        addToCalendar: false
       }
     };
   },
@@ -153,9 +158,6 @@ export default {
 
   methods: {
     checkClick(e) {
-      console.log('target', e.target);
-      console.log('ref', this.$refs.milestoneWrap)
-      
       if(e.target === this.$refs.milestoneWrap) {
         this.toggleModal();
       }
@@ -179,7 +181,6 @@ export default {
       })
     },
 
-
     async submitForm() {
       try {
 
@@ -188,6 +189,7 @@ export default {
         this.emptyFields = emptyFields;
   
         if (error) {
+          console.log(error)
           this.error = true;
           this.errorMsg = "Invalid data. Try again";
           this.errorModal();
@@ -211,21 +213,44 @@ export default {
       try {
         
         const passphrase = process.env.PASSPHRASE;
-        // const loginData = {
-        //   username: await this.encryptData(this.loginDetails.username, passphrase),
-        //   password: await this.encryptData(this.loginDetails.password, passphrase),
+
+        // const cryptMilestoneData = {
+        //   project: await this.encryptData(this.milestoneData.project, passphrase),
+
+        //   title: await this.encryptData(this.milestoneData.title, passphrase),
+
+        //   due_date: await this.encryptData(this.milestoneData.dueDate, passphrase),
+
+        //   priority_level: await this.encryptData(this.milestoneData.priorityLvl, passphrase),
+
+        //   add_to_calendar: await this.encryptData(this.milestoneData.addToCalendar, passphrase),
         // };
 
-        //const token = localStorage.getItem('authToken'); 
-        const token = this.GET_TOKEN;
-        const response = await this.axios.post('milestones/', this.milestoneData, {
+        const cryptMilestoneData = {
+          project: this.milestoneData.project,
+
+          title: this.milestoneData.title,
+
+          due_date: this.milestoneData.dueDate,
+
+          priority_level: this.milestoneData.priorityLvl,
+
+          add_to_calendar: this.milestoneData.addToCalendar, 
+        };
+
+        console.log('data', cryptMilestoneData)
+
+        const token = await this.GET_TOKEN;
+        
+        const response = await this.axios.post('milestones/', cryptMilestoneData, {
           headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json' 
+            Authorization: `Bearer ${token}` 
           }
         });
 
         this.$emit('milestone-saved');
+
+        this.milestoneSuccess = true;
 
         console.log('Save successful', response.data);
 
@@ -233,22 +258,31 @@ export default {
       catch(err){
         this.loading = false;
         this.error = true;
-        console.log(err);
-        //console.error('Error:', error.response ? error.response.data : error.message);
-      
-        this.errorMsg = err.response ? err.response.data.message : "Couldn't save! Try again";
+        
+        this.errorMsg =  "Failed to save milestone";
+        this.errorModal();
+
       }finally {
         this.loading = false;
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
+          this.milestoneSuccess = false;
           this.resetForm();
-        }, 12000);
+        }, 20000);
       }
     },
 
     async encryptData(data, passphrase) {
-      return CryptoJS.AES.encrypt(data, passphrase).toString();
+      try {
+        if (typeof data !== 'string') {
+          data = JSON.stringify(data);
+        }
+        return CryptoJS.AES.encrypt(data, passphrase).toString();
+      } catch(err) {
+        
+        throw err;
+      }
     },
 
     resetForm() {
@@ -257,7 +291,7 @@ export default {
         dueDate: null,
         priorityLvl: null,
         status: "",
-        saveToCalendar: false
+        addToCalendar: false
       } 
     }  
   }

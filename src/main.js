@@ -34,16 +34,17 @@ library.add(
 );
 
 
-const app= createApp(App);
+store.dispatch('auth/ASSIGN_TOKEN').then(() => {
+  const app = createApp(App);
 
-app.use(store)
-app.use(router)
-app.use(ElementPlus)
-app.use(VueAxios, axios);
+  app.use(store);
+  app.use(router);
+  app.use(ElementPlus);
+  app.use(VueAxios, axios);
+  app.use(vuetify);
 
-app.use(vuetify);
+  app.component('fa-icon', FontAwesomeIcon);
+  app.component('spinner', Spinner);
 
-app.component('fa-icon', FontAwesomeIcon)
-app.component('spinner', Spinner)
-
-app.mount('#app')
+  app.mount('#app');
+});

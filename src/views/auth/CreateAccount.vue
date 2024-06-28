@@ -129,7 +129,8 @@ export default {
       
       signUpDetails: {
         email: "",
-        password: ""
+        password: "",
+        userType: 'CLIENT'
       }
     }
   },
@@ -179,7 +180,7 @@ export default {
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
-        }, 12000);
+        }, 30000);
       }
     },
 
@@ -192,7 +193,8 @@ export default {
         const passphrase = process.env.PASSPHRASE;
         const signUpData = {
           user: {
-            username: await this.encryptData(this.signUpDetails.email, passphrase)
+            username: await this.encryptData(this.signUpDetails.email, passphrase),
+            user_type: await this.encryptData(this.signUpDetails.userType, passphrase)
           },
          
           password: await this.encryptData(this.signUpDetails.password, passphrase),
@@ -211,7 +213,9 @@ export default {
       catch(err){
         this.loading = false;
         this.error = true;
-        this.errorMsg = err.response ? err.response.data.message : "Couldn't sign up. Try again.";
+        //console.log(err)
+
+        this.errorMsg = "Couldn't sign up. Try again.";
         this.errorModal();
       }
       finally {
@@ -221,7 +225,7 @@ export default {
           this.errorMsg = "";
           this.signInSuccess = false;
           this.resetForm();
-        }, 12000);
+        }, 20000);
       }
     },
 

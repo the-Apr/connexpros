@@ -2,7 +2,7 @@
   
   <div id="app">
 
-    <spinner v-if="loading"/>
+    <!-- <spinner v-if="loading"/> -->
 
     <suspense>
       
@@ -13,7 +13,8 @@
       <template #default v-else>
 
         <transition name="scale-fade" mode="out-in" >
-        <div class="app-wrap" v-if="!notFound && isAuthenticated">
+        <div class="app-wrap" >
+          <!-- v-if="!notFound && isAuthenticated" -->
           <panel-nav/>
           <router-view/>
         </div>
@@ -52,7 +53,7 @@ export default {
   },
 
   mounted(){
-    this.loginRedirect();
+    //this.loginRedirect();
   },
 
   computed: {

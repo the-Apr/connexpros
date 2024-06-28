@@ -14,7 +14,7 @@
             v-for="(navBtn,index) in navBtnArray"
             :key="index"
             :title= navBtn.navTitle
-            :iconImg = navBtn.navImg
+            :iconImg = navBtn.navIcon
             :routeLink = navBtn.navRoute
           />
         </div>
@@ -47,26 +47,26 @@ export default {
     return {
       navBtnArray: [
         {
-          navImg: 'briefcase',
+          navIcon: 'dashboard',
           navTitle: 'Dashboard',
           navRoute: 'dashboard'
         },
         
         {
-          navImg: 'briefcase',
+          navIcon: 'folder',
           navTitle: 'Documents',
           navRoute: 'doc'
         },
         {
-          navImg: 'briefcase',
+          navIcon: 'business_center',
           navTitle: 'Projects',
           navRoute: 'proj'
         },
-        // {
-        //   navImg: 'briefcase',
-        //   navTitle: 'Dashboard',
-        //   navRoute: 'xyz'
-        // },
+        {
+          navIcon: 'account_balance_wallet',
+          navTitle: 'Billings',
+          navRoute: 'billing'
+        },
         // {
         //   navImg: 'briefcase',
         //   navTitle: 'Dashboard',

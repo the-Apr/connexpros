@@ -180,7 +180,10 @@ export default {
 
         const response = await this.axios.post('auth/login/', this.loginDetails);
 
-        localStorage.setItem('authToken', response.data.access);
+        const storeToken = localStorage.setItem('authToken', response.data.access);
+
+        console.log('storetoken', storeToken);
+        console.log(response.data.access)
 
         this.$router.push({ name: 'dashboard' })
 
@@ -189,14 +192,15 @@ export default {
         this.loading = false;
         this.error = true;
         this.errorModal();
-        this.errorMsg = err.response ? err.response.data.message : "Access Denied! Try again.";
+        this.errorMsg = err.response ? err.response.message : "Access Denied! Try again.";
+
       }finally {
         this.loading = false;
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
           this.resetForm();
-        }, 12000);
+        }, 20000);
       }
     },
 
@@ -222,10 +226,10 @@ export default {
     margin: 0 auto;
 
     .login-wrap {
-      @apply flex flex-col gap-y-20 justify-center  w-full h-full;
+      @apply flex flex-col gap-y-6 justify-start  w-full h-full py-14;
 
       @screen lg {
-        @apply flex-row gap-y-8 ;
+        @apply flex-row gap-y-8 justify-center py-0;
       }
 
       .logo-space {
@@ -236,7 +240,7 @@ export default {
         }
 
         img {
-          @apply object-cover w-[250px];
+          @apply object-cover w-[150px];
 
           @screen lg {
             @apply w-[450px]
@@ -290,10 +294,10 @@ export default {
               }
 
               label {
-                @apply text-xs  ml-2 place-self-start;
+                @apply text-sm font-medium ml-2 place-self-start;
 
                 @screen md {
-                  @apply text-base font-medium tracking-wider mb-1;
+                  @apply text-base tracking-wider mb-1;
                 }
               }
 
@@ -307,10 +311,10 @@ export default {
                 }
 
                 &::placeholder {
-                  @apply text-[#CACACA] text-opacity-50 text-[13px] text-left font-normal;
+                  @apply text-[#CACACA] text-opacity-95 text-[13px] text-left font-normal;
 
-                  @screen md {
-                    @apply text-base;
+                  @screen lg {
+                    @apply text-base text-opacity-60;
                   }
                 }
 
@@ -335,7 +339,7 @@ export default {
             }
 
             .signed {
-              @apply flex gap-3 place-self-start;
+              @apply flex gap-3 place-self-start items-center text-sm;
 
               input[type='checkbox'] {
                 @apply accent-[#DCBC86] text-white border-none;
@@ -356,7 +360,11 @@ export default {
           }
 
           .forgot-password {
-            @apply cursor-pointer text-sm uppercase opacity-50 flex flex-col gap-3;
+            @apply cursor-pointer text-xs uppercase opacity-50 flex flex-col gap-2;
+
+            @screen lg {
+              @apply gap-3 text-sm;
+            }
 
             a{
               @apply no-underline underline-offset-2 ;
@@ -372,7 +380,8 @@ export default {
         } 
 
         .privacy-policy{
-          @apply  bottom-9 absolute opacity-50;
+          @apply   absolute opacity-50;
+          bottom: 2%;
           
           @screen lg {
             @apply place-self-end mr-4

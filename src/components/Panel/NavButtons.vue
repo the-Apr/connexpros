@@ -6,9 +6,13 @@
      class="nav-link" >
       <div class="nav-btn"
       :class="{ activeNav: isActiveRoute(routeLink) }">
-        <fa-icon 
+        <!-- <fa-icon 
         :icon="['fas', iconImg]"
-        class="icon" />
+        class="icon" /> -->
+
+        <span class="material-symbols-rounded icon">
+          {{iconImg}}
+        </span>
       </div>
 
       <!-- Btn title -->
@@ -61,8 +65,16 @@ export default {
 
 <style lang='scss' scoped>
 
-.router-link-active{
-  @apply shadow-lg;
+// .router-link-active{
+//   @apply shadow-lg;
+// }
+
+.material-symbols-rounded {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
 
 .btn-wrap {
@@ -90,7 +102,7 @@ export default {
       }
 
       .icon {
-        @apply h-[24px];
+        @apply text-[30px];
       }
 
     }

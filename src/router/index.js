@@ -147,6 +147,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "tasks" */ '../views/Tasks.vue'),
     meta: {
       title: 'Tasks'
+    }
+  },
+
+  //Billings
+  {
+    path: '/billing',
+    name: 'billing',
+    component: () => import(/* webpackChunkName: "billing" */ '../views/billings/Billing.vue'),
+    meta: {
+      title: 'Billing'
     },
   }
   
@@ -163,8 +173,6 @@ router.beforeEach(async (to, from, next) => {
   store.commit('auth/SET_LOADING', true);
 
   const isAuthenticated = store.getters['auth/IS_AUTH'];
-
-  console.log(isAuthenticated)
 
   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     store.commit('auth/SET_LOADING', false);
