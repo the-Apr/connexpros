@@ -191,13 +191,22 @@ export default {
       try {
         
         const passphrase = process.env.PASSPHRASE;
+        // const signUpData = {
+        //   user: {
+        //     username: await this.encryptData(this.signUpDetails.email, passphrase),
+        //     user_type: await this.encryptData(this.signUpDetails.userType, passphrase)
+        //   },
+         
+        //   password: await this.encryptData(this.signUpDetails.password, passphrase),
+          
+        // };
         const signUpData = {
           user: {
-            username: await this.encryptData(this.signUpDetails.email, passphrase),
-            user_type: await this.encryptData(this.signUpDetails.userType, passphrase)
+            username: this.signUpDetails.email,
+            user_type: this.signUpDetails.userType,
           },
          
-          password: await this.encryptData(this.signUpDetails.password, passphrase),
+          password: this.signUpDetails.password,
           
         };
 

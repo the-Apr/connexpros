@@ -12,7 +12,7 @@ export default {
 
   getters: {
 
-    async GET_TOKEN(state) {
+    GET_TOKEN(state) {
       return state.token;
     },
 

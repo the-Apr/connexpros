@@ -258,6 +258,8 @@ export default {
       catch(err){
         this.loading = false;
         this.error = true;
+
+        console.log('error from saving', err)
         
         this.errorMsg =  "Failed to save milestone";
         this.errorModal();

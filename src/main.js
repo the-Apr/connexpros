@@ -11,8 +11,8 @@ import 'element-plus/dist/index.css'
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
-import vuetify from './plugins/vuetify'
-import '@mdi/font/css/materialdesignicons.css'
+// import vuetify from './plugins/vuetify'
+// import '@mdi/font/css/materialdesignicons.css'
 
 
 const Spinner = defineAsyncComponent(() => import('@/components/UI/BaseLoading.vue'));
@@ -41,7 +41,7 @@ store.dispatch('auth/ASSIGN_TOKEN').then(() => {
   app.use(router);
   app.use(ElementPlus);
   app.use(VueAxios, axios);
-  app.use(vuetify);
+  //app.use(vuetify);
 
   app.component('fa-icon', FontAwesomeIcon);
   app.component('spinner', Spinner);

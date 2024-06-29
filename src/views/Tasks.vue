@@ -1,5 +1,7 @@
 <template>
-  <v-app>
+
+  <div></div>
+  <!-- <v-app>
     <v-sheet height="600">
       <v-calendar
         ref="calendar"
@@ -10,7 +12,7 @@
         @click:day="handleDayClick"
       ></v-calendar>
     </v-sheet>
-  </v-app>
+  </v-app> -->
 </template>
 
 <script>
@@ -33,5 +35,5 @@ export default {
 </script>
 
 <style>
-@import 'vuetify/dist/vuetify.min.css';
+/* @import 'vuetify/dist/vuetify.min.css'; */
 </style>
