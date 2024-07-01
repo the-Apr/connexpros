@@ -103,10 +103,6 @@ import CryptoJS from 'crypto-js';
 
 export default {
   props: {
-    // show: {
-    //   type: Boolean,
-    //   required: true,
-    // },
 
     toggleModal: { 
       type: Function,
@@ -203,7 +199,7 @@ export default {
         setTimeout(() => {
           this.error = false;
           this.errorMsg = "";
-        }, 12000);
+        }, 20000);
       }
     },
 
@@ -316,23 +312,6 @@ export default {
     z-index: 9; 
   }
 
-  // .modal {
-  //   display: flex;
-  //   position: fixed;
-  //   justify-content: center;
-  //   align-items: center;
-  //   height: 100vh;
-  //   width: 100%;
-  //   padding: 0 10px;
-  //   margin: 0 3px;
-
-  //   @screen md {
-  //     @apply px-2 mx-1
-  //   }
-
-    
-  // }
-
   form { 
     @apply p-8 relative flex flex-col  gap-y-4 items-center justify-center w-[800px] text-[#141515] bg-white rounded-2xl ;
     
@@ -397,19 +376,12 @@ export default {
         }
       }
 
-      .error-msg{
-        @apply flex gap-2 items-center text-red-700;
-      }
+      // .error-msg{
+      //   @apply flex gap-2 items-center text-red-700;
+      // }
     }
 
-    .forgot-password {
-      @apply cursor-pointer text-sm uppercase no-underline underline-offset-2 opacity-50;
-      transition: 0.5s ease all;
-
-      &:hover {
-      @apply underline;
-      }
-    }
+    
 
   } 
 

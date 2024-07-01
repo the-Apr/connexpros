@@ -4,7 +4,8 @@ import formValid from './formValid';
 import auth from './auth';
 import documentPanel from './panelData/documentPanel';
 import document from './document';
-import project from './project'
+import project from './project';
+import billings from './billings';
 
 export default createStore({
 
@@ -13,7 +14,8 @@ export default createStore({
     auth,
     documentPanel,
     document,
-    project
+    project,
+    billings
   },
 
   state: {
@@ -21,6 +23,7 @@ export default createStore({
   getters: {
   },
   mutations: {
+    
   },
   actions: {
   },

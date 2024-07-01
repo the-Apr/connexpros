@@ -94,7 +94,7 @@ export default {
 .panel-nav-wrap {
   @apply px-8 py-10  text-[#515252] max-w-[300px] border-r-2 border-[#EAEBEB] shadow-md col-span-1 hidden;
   //height: 100vh;
-  z-index: 5;
+  z-index: 2;
 
   @screen lg{
     @apply block;
